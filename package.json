@@ -1,0 +1,27 @@
+{
+  "name": "h-website",
+  "version": "0.0.0",
+  "description": "Responsible for   - registering relationships between domains and a project   - verifying the validity of registered domains   - resolving domain names into information regarding where the served files are stored   - resolving domain names into information regarding other domains that are related to the     same storage",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "bunyan": "^1.8.1",
+    "clone": "^1.0.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.1",
+    "uuid": "^2.0.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-istanbul": "^1.1.1",
+    "gulp-mocha": "^3.0.1",
+    "mockery": "^1.7.0",
+    "server-destroy": "^1.0.1",
+    "should": "^11.1.0"
+  }
+}
