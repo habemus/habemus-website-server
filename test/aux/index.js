@@ -26,6 +26,8 @@ exports.defaultOptions = {
   hProjectURI: 'http://localhost:8001',
   rabbitMQURI: TEST_RABBIT_MQ_URI,
 
+  hostDomain: 'habemus.xyz',
+
   websiteHostIpAddresses: ['127.0.0.0', '127.0.0.1']
 };
 

@@ -122,7 +122,7 @@ domainRecordSchema.pre('validate', function (next) {
 
 /**
  * Add status-related functionalities to
- * the website Schema
+ * the domainRecord Schema
  */
 makeStatus(domainRecordSchema, {
   statuses: CONSTANTS.VALID_RECORD_STATUSES,

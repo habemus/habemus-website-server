@@ -42,8 +42,6 @@ function hWebsite(options) {
     
     // instantiate controllers
     app.controllers = {};
-    // app.controllers.event =
-    //   require('./controllers/event')(app, options);
     app.controllers.domainRecord =
       require('./controllers/domain-record')(app, options);
 
