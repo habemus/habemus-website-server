@@ -13,10 +13,13 @@ const CONSTANTS = require('../../shared/constants');
 const WEBSITE_MODEL = {
   _id: String,
   signedURL: String,
-  activeDomainRecords: [{
+  activeRecords: [{
     domain: String,
     enableWwwAlias: Boolean,
   }],
+  billingStatus: {
+    value: String,
+  }
 };
 
 module.exports = function (app, options) {
@@ -25,7 +28,7 @@ module.exports = function (app, options) {
    * Authentication token used to call hProject API
    * @type {String}
    */
-  const H_PROJECT_AUTH_TOKEN = options.hProjectAuthToken;
+  const H_PROJECT_TOKEN = options.hProjectToken;
 
   /**
    * Pattern to match habemus' domains
@@ -89,7 +92,7 @@ module.exports = function (app, options) {
     // var _projectId;
 
     return app.services.hProject
-      .getByCode(H_PROJECT_AUTH_TOKEN, projectCode)
+      .getByCode(H_PROJECT_TOKEN, projectCode)
       .then((project) => {
         return websiteCtrl.resolveProject(project._id, projectVersionCode);
       });
@@ -126,7 +129,7 @@ module.exports = function (app, options) {
 
     // promise for the projectVersion retrieval
     var projectVersionPromise = app.services.hProject.getProjectVersion(
-      H_PROJECT_AUTH_TOKEN,
+      H_PROJECT_TOKEN,
       projectId,
       projectVersionCode,
       {

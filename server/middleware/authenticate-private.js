@@ -1,7 +1,5 @@
 // third-party dependencies
-
-// constants
-const BEARER_TOKEN_RE = /^Bearer\s+(.+)/;
+const expressJwt = require('express-jwt');
 
 // exports a function that takes the app and some options and
 // returns the middleware
@@ -15,32 +13,8 @@ module.exports = function (app, options) {
 
   const errors = app.errors;
 
-  function parseToken(req) {
-    var authorizationHeader = req.header('Authorization');
-
-    if (!authorizationHeader) { return false; }
-
-    var match = authorizationHeader.match(BEARER_TOKEN_RE);
-
-    if (!match) {
-      return false;
-    } else {
-      return match[1];
-    } 
-  }
-
-  return function (req, res, next) {
-    var token = parseToken(req);
-
-    // verify the token
-    jwt.verify(token, PRIVATE_API_SECRET, (err, decoded) => {
-      if (err) {
-        next(new errors.InvalidToken());
-      } else {
-
-        req.privateTokenData = decoded;
-        next();
-      }
-    });
-  };
+  return expressJwt({
+    requestProperty: 'privateTokenData',
+    secret: PRIVATE_API_SECRET
+  });
 };

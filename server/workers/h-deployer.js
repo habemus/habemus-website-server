@@ -3,6 +3,7 @@ const util = require('util');
 
 // third-party
 const HWorkerServer = require('h-worker/server');
+const Bluebird      = require('bluebird');
 
 module.exports = function (app, options) {
 
@@ -13,13 +14,18 @@ module.exports = function (app, options) {
 
   HDeployer.prototype.workerFn = function (project, logger) {
 
+    if (!project._id) {
+      return Bluebird.reject(new app.errors.InvalidOption('project._id', 'required'));
+    }
+
+    var projectId = project._id;
+    var projectVersionCode = project.versionCode || null;
+
     // get the website
-    return app.controllers.domainRecord
-      .listProjectRecords(project._id, ['active'])
-      .then((activeRecords) => {
+    return app.controllers.website.resolve(projectId, projectVersionCode)
+      .then((website) => {
 
       });
-
   };
 
 

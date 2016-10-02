@@ -1,4 +1,4 @@
-// const aux = require('./auxiliary');
+const aux = require('./auxiliary');
 
 // exports a function that takes the app and some options and
 // returns the middleware
@@ -24,25 +24,13 @@ module.exports = function (app, options) {
   }
 
   /**
-   * The default projectCode getter retrieves its value
-   * from `req.workspace.projectCode`.
-   * Expects the workspace to have been loaded by a previous middleware
-   * 
-   * @param  {Express Request} req
-   * @return {String}
-   */
-  const _projectCode = options.projectCode || function (req) {
-    return req.workspace.projectCode;
-  };
-
-  /**
    * Function to get the project's id.
    * 
    * @param  {Express Request} req
    * @return {String}
    */
   const _projectId = options.projectId || function (req) {
-    return req.workspace ? req.workspace.projectId : false;
+    return req.params.projectId;
   };
 
   /**
@@ -53,42 +41,20 @@ module.exports = function (app, options) {
 
   return function verifyPermissions(req, res, next) {
     /**
-     * Requires parse-auth-token middleware to have been executed
+     * Requires authenticate middleware to have been executed
      * before in the middleware chain
      */
     var sub         = aux.evaluateOpt(_sub, req);
-    var projectCode = aux.evaluateOpt(_projectCode, req);
     var projectId   = aux.evaluateOpt(_projectId, req);
     var permissions = aux.evaluateOpt(_permissions, req);
 
-    var promise;
-
-    if (projectCode) {
-
-      promise = hProject.verifyProjectPermissions(
-        H_PROJECT_TOKEN,
-        sub,
-        projectCode,
-        permissions,
-        {
-          byId: false,
-        }
-      );
-
-    } else {
-
-      promise = hProject.verifyProjectPermissions(
-        H_PROJECT_TOKEN,
-        sub,
-        projectId,
-        permissions,
-        {
-          byId: true,
-        }
-      );
-    }
-    
-    promise.then(() => {
+    hProject.verifyProjectPermissions(
+      H_PROJECT_TOKEN,
+      sub,
+      projectId,
+      permissions
+    )
+    .then(() => {
       // allow
       next();
     })
