@@ -1,12 +1,12 @@
 // third-party
 const Bluebird = require('bluebird');
 
-const PrivateHProject = require('h-project/client/private');
+const PrivateHAccount = require('h-account/client/private');
 
 module.exports = function (app, options) {
   
   return new Bluebird((resolve, reject) => {
-    resolve(new PrivateHProject({
+    resolve(new PrivateHAccount({
       serverURI: options.hProjectURI,
     }));
   });

@@ -3,7 +3,7 @@ const URLPattern = require('url-pattern');
 const Bluebird   = require('bluebird');
 
 // constants
-const CONSTANTS = require('../../../shared/constants');
+const CONSTANTS = require('../../shared/constants');
 
 /**
  * Data format for website resolution.
@@ -19,7 +19,7 @@ const WEBSITE_MODEL = {
   }],
 };
 
-module.exports = function (domainRecordCtrl, app, options) {
+module.exports = function (app, options) {
 
   /**
    * Authentication token used to call hProject API
@@ -35,9 +35,9 @@ module.exports = function (domainRecordCtrl, app, options) {
 
   const errors = app.errors;
 
-  const DomainRecord = app.services.mongoose.models.DomainRecord;
+  var websiteCtrl = {};
 
-  domainRecordCtrl.resolve = function (domain) {
+  websiteCtrl.resolve = function (domain) {
 
     if (!domain) {
       return Bluebird.reject(new errors.InvalidOption('domain', 'required'));
@@ -47,13 +47,13 @@ module.exports = function (domainRecordCtrl, app, options) {
 
     if (habemusMatch) {
       // it is habemus domain
-      return domainRecordCtrl.resolveHabemus({
+      return websiteCtrl.resolveHabemus({
         code: habemusMatch.code,
         version: habemusMatch.version,
       });
     } else {
       // custom domain
-      return domainRecordCtrl.resolveCustomDomain(domain);
+      return websiteCtrl.resolveCustomDomain(domain);
     }
 
   };
@@ -65,7 +65,7 @@ module.exports = function (domainRecordCtrl, app, options) {
    * @param  {String|Object} domain
    * @return {Bluebird -> Website}
    */
-  domainRecordCtrl.resolveHabemus = function (domain) {
+  websiteCtrl.resolveHabemus = function (domain) {
 
     if (!domain) {
       return Bluebird.reject(new errors.InvalidOption('domain', 'required'));
@@ -86,112 +86,36 @@ module.exports = function (domainRecordCtrl, app, options) {
 
     var projectCode        = domainData.code;
     var projectVersionCode = domainData.version || null;
-    var _projectId;
+    // var _projectId;
 
     return app.services.hProject
       .getByCode(H_PROJECT_AUTH_TOKEN, projectCode)
       .then((project) => {
-
-        _projectId = project._id;
-
-        // promise for the projectVersion retrieval
-        var projectVersionPromise = app.services.hProject.getProjectVersion(
-          H_PROJECT_AUTH_TOKEN,
-          project._id,
-          projectVersionCode,
-          {
-            distSignedURL: 'read'
-          }
-        );
-
-        // promise for active records retrieval
-        // if there is a projectVersionCode, no active
-        // records should be retrieved, as versioning
-        // is exclusive to the habemus url.
-        var activeRecordsPromise;
-
-        if (!projectVersionCode) {
-          activeRecordsPromise = domainRecordCtrl.listProjectRecords(project._id, [
-            CONSTANTS.RECORD_STATUSES.ACTIVE
-          ]);
-        } else {
-          activeRecordsPromise = [];
-        }
-
-        return Bluebird.all([
-          projectVersionPromise,
-          activeRecordsPromise
-        ]);
-      })
-      .then((results) => {
-
-        var version       = results[0];
-        var activeRecords = results[1];
-
-        return {
-          _id: _projectId,
-          signedURL: version.distSignedURL,
-          activeRecords: activeRecords.map((record) => {
-            return {
-              domain: record.domain,
-              enableWwwAlias: record.enableWwwAlias,
-            };
-          }),
-        };
+        return websiteCtrl.resolveProject(project._id, projectVersionCode);
       });
-
   };
 
-  domainRecordCtrl.resolveCustomDomain = function (domain) {
+  websiteCtrl.resolveCustomDomain = function (domain) {
 
     if (!domain) {
       return Bluebird.reject(new errors.InvalidOption('domain', 'required'));
     }
 
-    var _record;
-
-    return domainRecordCtrl.getByActiveDomain(domain)
+    return app.controllers.domainRecord.getByActiveDomain(domain)
       .then((record) => {
-        _record = record;
-
-        return Bluebird.all([
-
-          // retrieve the project through h-project private api
-          app.services.hProject.getProjectVersion(
-            H_PROJECT_AUTH_TOKEN,
-            record.projectId,
-            null, // latest version
-            {
-              distSignedURL: 'read',
-            }
-          ),
-
-          // retrieve all active records associated to the project
-          domainRecordCtrl.listProjectRecords(_record.projectId, [
-            CONSTANTS.RECORD_STATUSES.ACTIVE
-          ]),
-        ]);
-
-      })
-      .then((results) => {
-
-        var version       = results[0];
-        var activeRecords = results[1];
-
-        return {
-          _id: _record.projectId,
-          signedURL: version.distSignedURL,
-          activeRecords: activeRecords.map((record) => {
-            return {
-              domain: record.domain,
-              enableWwwAlias: record.enableWwwAlias,
-            };
-          }),
-        };
+        return websiteCtrl.resolveProject(record.projectId, null);
       });
   };
 
-  domainRecordCtrl.resolveProject = function (projectId, projectVersionCode) {
+  /**
+   * Resolves the website for the given projectId
+   * and projectVersionCode
+   * 
+   * @param  {String} projectId
+   * @param  {String} projectVersionCode
+   * @return {Bluebird -> Website}
+   */
+  websiteCtrl.resolveProject = function (projectId, projectVersionCode) {
 
     if (!projectId) {
       return Bluebird.reject(new errors.InvalidOption('projectId', 'required'));
@@ -217,7 +141,7 @@ module.exports = function (domainRecordCtrl, app, options) {
     var activeRecordsPromise;
 
     if (!projectVersionCode) {
-      activeRecordsPromise = domainRecordCtrl.listProjectRecords(project._id, [
+      activeRecordsPromise = app.controllers.domainRecord.listProjectRecords(projectId, [
         CONSTANTS.RECORD_STATUSES.ACTIVE
       ]);
     } else {
@@ -234,7 +158,7 @@ module.exports = function (domainRecordCtrl, app, options) {
       var activeRecords = results[1];
 
       return {
-        _id: _projectId,
+        _id: projectId,
         signedURL: version.distSignedURL,
         activeRecords: activeRecords.map((record) => {
           return {
@@ -246,4 +170,6 @@ module.exports = function (domainRecordCtrl, app, options) {
     });
 
   };
+
+  return websiteCtrl;
 };

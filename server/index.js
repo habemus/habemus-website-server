@@ -9,11 +9,13 @@ const setupServices = require('./services');
  * Function that starts the host server
  */
 function hWebsite(options) {
-  if (!options.apiVersion) { throw new Error('apiVersion is required'); }
-  if (!options.hAuthURI) { throw new Error('hAuthURI is required'); }
-  if (!options.hProjectURI) { throw new Error('hProjectURI is required'); }
-  if (!options.mongodbURI) { throw new Error('mongodbURI is required'); }
-  if (!options.rabbitMQURI) { throw new Error('rabbitMQURI is required'); }
+  if (!options.apiVersion)    { throw new Error('apiVersion is required'); }
+  if (!options.hAccountURI)      { throw new Error('hAccountURI is required'); }
+  if (!options.hAccountToken)    { throw new Error('hAccountToken is required'); }
+  if (!options.hProjectURI)   { throw new Error('hProjectURI is required'); }
+  if (!options.hProjectToken) { throw new Error('hProjectToken id required'); }
+  if (!options.mongodbURI)    { throw new Error('mongodbURI is required'); }
+  if (!options.rabbitMQURI)   { throw new Error('rabbitMQURI is required'); }
   
   if (!Array.isArray(options.websiteHostIpAddresses) || options.websiteHostIpAddresses.length === 0) {
     throw new Error('websiteHostIpAddresses is required and MUST NOT be empty');
@@ -30,7 +32,7 @@ function hWebsite(options) {
   var app = express();
 
   // generate a unique id for the app
-  app.id = 'h-website-manager-' + uuid.v4();
+  app.id = 'h-website-' + uuid.v4();
 
   // make constants available throughout the application
   app.constants = require('../shared/constants');
@@ -44,19 +46,17 @@ function hWebsite(options) {
     app.controllers = {};
     app.controllers.domainRecord =
       require('./controllers/domain-record')(app, options);
+    app.controllers.website =
+      require('./controllers/website')(app, options);
 
     // instantiate middleware for usage in routes
     app.middleware = {};
-    // app.middleware.authenticate =
-    //   require('./middleware/authenticate').bind(null, app);
-    // app.middleware.authenticatePrivateAPI =
-    //   require('./middleware/authenticate-private-api').bind(null, app);
-    // app.middleware.loadWebsite =
-    //   require('./middleware/load-website').bind(null, app);
-    // app.middleware.verifyWebsitePermissions =
-    //   require('./middleware/verify-website-permissions').bind(null, app);
-    // app.middleware.uploadToWebsiteStorage =
-    //   require('./middleware/upload-to-website-storage').bind(null, app);
+    app.middleware.authenticate =
+      require('./middleware/authenticate').bind(null, app);
+    app.middleware.authenticatePrivate =
+      require('./middleware/authenticate-private').bind(null, app);
+    app.middleware.verifyProjectPermissions =
+      require('./middleware/verify-project-permissions').bind(null, app);
     
     // define description route
     // app.get('/hello', function (req, res) {
@@ -69,7 +69,7 @@ function hWebsite(options) {
     // });
   
     // load routes
-    // require('./routes/website')(app, options);
+    require('./routes/public')(app, options);
 
     if (options.enablePrivateAPI) {
 
@@ -77,7 +77,7 @@ function hWebsite(options) {
         throw new Error('privateAPISecret is required to enablePrivateAPI');
       }
 
-      require('./routes/private-api')(app, options);
+      require('./routes/private')(app, options);
     }
   
     // load error-handlers
@@ -89,6 +89,10 @@ function hWebsite(options) {
     // app.cron.domainVerification = require('./cron/domain-verification')(app, options);
     // app.cron.domainVerification.start();
     
+    // setup workers
+    // return require('./workers')(app, options);
+  })
+  .then(() => {
     return app;
   });
 

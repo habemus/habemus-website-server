@@ -1,6 +1,6 @@
 // third-party dependencies
-const Bluebird   = require('bluebird');
-const hDns       = require('h-dns');
+const Bluebird = require('bluebird');
+const hDns     = require('h-dns');
 
 // constants
 const CONSTANTS = require('../../../shared/constants');

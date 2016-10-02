@@ -22,8 +22,10 @@ exports.fixturesPath = FIXTURES_PATH;
 exports.defaultOptions = {
   apiVersion: '0.0.0',
   mongodbURI: TEST_DB_URI,
-  hAuthURI: 'http://localhost:8000',
+  hAccountURI: 'http://localhost:8000',
+  hAccountToken: 'H_ACCOUNT_TOKEN',
   hProjectURI: 'http://localhost:8001',
+  hProjectToken: 'H_PROJECT_TOKEN',
   rabbitMQURI: TEST_RABBIT_MQ_URI,
 
   hostDomain: 'habemus.xyz',

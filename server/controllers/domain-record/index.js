@@ -1,5 +1,5 @@
 // third-party dependencies
-const Bluebird   = require('bluebird');
+const Bluebird = require('bluebird');
 
 // constants
 const CONSTANTS = require('../../../shared/constants');
@@ -111,7 +111,6 @@ module.exports = function (app, options) {
     return DomainRecord.find(query);
   };
 
-  require('./resolve')(domainRecordCtrl, app, options);
   require('./verify')(domainRecordCtrl, app, options);
 
   return domainRecordCtrl;
