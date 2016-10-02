@@ -1,3 +1,7 @@
+// third-party
+const Bluebird = require('bluebird');
+
+// own
 const aux = require('./auxiliary');
 
 // exports a function that takes the app and some options and
@@ -8,6 +12,10 @@ module.exports = function (app, options) {
    * @type {JWT}
    */
   const H_PROJECT_TOKEN = options.hProjectToken;
+
+  if (!H_PROJECT_TOKEN) {
+    throw new Error('options.hProjectToken is required');
+  }
 
   const errors = app.errors;
 
@@ -44,9 +52,9 @@ module.exports = function (app, options) {
      * Requires authenticate middleware to have been executed
      * before in the middleware chain
      */
-    var sub         = aux.evaluateOpt(_sub, req);
-    var projectId   = aux.evaluateOpt(_projectId, req);
-    var permissions = aux.evaluateOpt(_permissions, req);
+    var sub         = aux.evalOpt(_sub, req);
+    var projectId   = aux.evalOpt(_projectId, req);
+    var permissions = aux.evalOpt(_permissions, req);
 
     hProject.verifyProjectPermissions(
       H_PROJECT_TOKEN,
@@ -54,11 +62,17 @@ module.exports = function (app, options) {
       projectId,
       permissions
     )
-    .then(() => {
-      // allow
-      next();
+    .then((result) => {
+
+      if (result.allowed) {
+        next();
+      } else {
+        return Bluebird.reject(new errors.Unauthorized());
+      }
     })
     .catch((err) => {
+      console.log(err);
+
       // prohibit
       next(err);
     });

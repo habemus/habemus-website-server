@@ -7,7 +7,7 @@ module.exports = function (app, options) {
   
   return new Bluebird((resolve, reject) => {
     resolve(new PrivateHAccount({
-      serverURI: options.hProjectURI,
+      serverURI: options.hAccountURI,
     }));
   });
 };

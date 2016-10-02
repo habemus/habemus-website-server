@@ -1,3 +1,6 @@
+// third-party
+const Bluebird = require('bluebird');
+
 // own
 const errors = require('../../shared/errors');
 
@@ -10,7 +13,7 @@ exports.createDomainRecord = function (authToken, projectId, recordData) {
 
   return this._authReq(
     'POST',
-    '/website/' + projectId + '/domain-records',
+    '/project/' + projectId + '/domain-records',
     {
       authToken: authToken,
       send: recordData,
@@ -31,7 +34,7 @@ exports.getDomainRecord = function (authToken, projectId, recordId) {
 
   return this._authReq(
     'GET',
-    '/website/' + projectId + '/domain-record/' + recordId,
+    '/project/' + projectId + '/domain-record/' + recordId,
     {
       authToken: authToken,
     }
@@ -47,11 +50,14 @@ exports.listDomainRecords = function (authToken, projectId) {
 
   return this._authReq(
     'GET',
-    '/website/' + projectId + '/domain-records',
+    '/project/' + projectId + '/domain-records',
     {
       authToken: authToken,
     }
-  );
+  )
+  .then(function (data) {
+    return data.items;
+  });
 };
 
 exports.deleteDomainRecord = function (authToken, projectId, recordId) {
@@ -67,7 +73,7 @@ exports.deleteDomainRecord = function (authToken, projectId, recordId) {
 
   return this._authReq(
     'DELETE',
-    '/website/' + projectId + '/domain-record/' + recordId,
+    '/project/' + projectId + '/domain-record/' + recordId,
     {
       authToken: authToken,
     }

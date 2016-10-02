@@ -1,6 +1,7 @@
 'use strict';
 const MongoClient = require('mongodb').MongoClient;
 const gulp        = require('gulp');
+const gulpNodemon = require('gulp-nodemon');
 // tests
 const istanbul    = require('gulp-istanbul');
 const mocha       = require('gulp-mocha');
@@ -40,4 +41,32 @@ gulp.task('drop-db', function (done) {
       return _db.close(true, done);
     })
     .catch(done);
+});
+
+/**
+ * Run server and restart it everytime server file changes
+ */
+gulp.task('nodemon', function () {
+  gulpNodemon({
+    script: 'cli/dev-start.js',
+    env: {
+      PORT: 5001,
+
+      MONGODB_URI: DEV_DB_URI,
+      RABBIT_MQ_URI: 'amqp://192.168.99.100',
+
+      ENABLE_PRIVATE_API: 'true',
+      PRIVATE_API_SECRET: 'Fake-secret',
+
+      WEBSITE_SERVER_IP_ADDRESSES: '127.0.0.0,127.0.0.1',
+
+      CORS_WHITELIST: 'http://localhost:3000',
+    },
+    ext: 'js',
+    ignore: [
+      'client/**/*',
+      'dist/**/*',
+      'gulpfile.js',
+    ],
+  })
 });

@@ -10,15 +10,15 @@ const setupServices = require('./services');
  */
 function hWebsite(options) {
   if (!options.apiVersion)    { throw new Error('apiVersion is required'); }
-  if (!options.hAccountURI)      { throw new Error('hAccountURI is required'); }
-  if (!options.hAccountToken)    { throw new Error('hAccountToken is required'); }
+  if (!options.hAccountURI)   { throw new Error('hAccountURI is required'); }
+  if (!options.hAccountToken) { throw new Error('hAccountToken is required'); }
   if (!options.hProjectURI)   { throw new Error('hProjectURI is required'); }
   if (!options.hProjectToken) { throw new Error('hProjectToken id required'); }
   if (!options.mongodbURI)    { throw new Error('mongodbURI is required'); }
   if (!options.rabbitMQURI)   { throw new Error('rabbitMQURI is required'); }
   
-  if (!Array.isArray(options.websiteHostIpAddresses) || options.websiteHostIpAddresses.length === 0) {
-    throw new Error('websiteHostIpAddresses is required and MUST NOT be empty');
+  if (!Array.isArray(options.websiteServerIpAddresses) || options.websiteServerIpAddresses.length === 0) {
+    throw new Error('websiteServerIpAddresses is required and MUST NOT be empty');
   }
 
   /**
@@ -51,6 +51,8 @@ function hWebsite(options) {
 
     // instantiate middleware for usage in routes
     app.middleware = {};
+    app.middleware.cors =
+      require('./middleware/cors').bind(null, app);
     app.middleware.authenticate =
       require('./middleware/authenticate').bind(null, app);
     app.middleware.authenticatePrivate =
@@ -81,7 +83,7 @@ function hWebsite(options) {
     }
   
     // load error-handlers
-    // require('./error-handlers/h-website-manager-errors')(app, options);
+    require('./error-handlers/h-website-errors')(app, options);
     // require('./error-handlers/mongoose-validation-error')(app, options);
   
     // load cron jobs and start them

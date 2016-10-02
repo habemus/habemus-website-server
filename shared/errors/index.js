@@ -102,9 +102,16 @@ function UploadFailed() {
 util.inherits(UploadFailed, HWebsiteError);
 UploadFailed.prototype.name = 'UploadFailed';
 
+function Unauthorized() {
+  HWebsiteError.call(this, 'Unauthorized');
+}
+util.inherits(Unauthorized, HWebsiteError);
+Unauthorized.prototype.name = 'Unauthorized';
+
 exports.Unauthorized = Unauthorized;
 exports.InvalidToken = InvalidToken;
 exports.MaxFilesizeExceeded = MaxFilesizeExceeded;
 exports.NotFound = NotFound;
 exports.InUse = InUse;
 exports.UploadFailed = UploadFailed;
+exports.Unauthorized = Unauthorized;

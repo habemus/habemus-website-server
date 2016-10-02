@@ -11,7 +11,7 @@ module.exports = function (app, options) {
    * websites will be hosted from.
    * @type {Array}
    */
-  const IP_ADDRESSES = options.websiteHostIpAddresses;
+  const IP_ADDRESSES = options.websiteServerIpAddresses;
 
   const errors = app.errors;
 
@@ -21,17 +21,23 @@ module.exports = function (app, options) {
 
   /**
    * Creates a new domain record
+   * @param  {String} projectId
    * @param  {String} domain
    * @param  {Object} recordData
    * @return {Bluebird -> DomainRecord}
    */
-  domainRecordCtrl.create = function (domain, recordData) {
+  domainRecordCtrl.create = function (projectId, domain, recordData) {
+    if (!projectId) {
+      return Bluebird.reject(new errors.InvalidOption('projectId', 'required'));
+    }
+
     if (!domain) {
       return Bluebird.reject(new errors.InvalidOption('domain', 'required'));
     }
 
     var domainRecord = new DomainRecord(recordData);
     
+    domainRecord.set('projectId', projectId);
     domainRecord.set('domain', domain);
 
     domainRecord.set('ipAddresses', IP_ADDRESSES);
