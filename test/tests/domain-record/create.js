@@ -11,7 +11,7 @@ const ValidationError = mongoose.Error.ValidationError;
 // auxiliary
 const aux = require('../../aux');
 
-describe('domainRecordCtrl.create(domain, recordData)', function () {
+describe('domainRecordCtrl.create(projectId, domain, recordData)', function () {
 
   var ASSETS;
   var domainRecordCtrl;
@@ -82,9 +82,7 @@ describe('domainRecordCtrl.create(domain, recordData)', function () {
   });
 
   it('should create a DomainRecord entry', function () {
-    return domainRecordCtrl.create('www.test.habemus.xyz', {
-      projectId: 'project-1',
-    })
+    return domainRecordCtrl.create('project-1', 'www.test.habemus.xyz', {})
     .then((record) => {
 
       // should remove the 'www' from the domain
@@ -95,19 +93,19 @@ describe('domainRecordCtrl.create(domain, recordData)', function () {
     });
   });
 
-  it('should require a domain as the first argument', function () {
-    return domainRecordCtrl.create(undefined, {
-      projectId: 'project-1',
-    })
+  it('should require a projectId as the first argument', function () {
+    return domainRecordCtrl.create(undefined, 'www.test.habemus.xyz', {})
     .then(aux.errorExpected, (err) => {
       err.name.should.equal('InvalidOption');
+      err.option.should.equal('projectId');
     });
   });
 
   it('should require a projectId', function () {
-    return domainRecordCtrl.create('www.test.habemus.xyz', {})
+    return domainRecordCtrl.create('project-1', undefined, {})
       .then(aux.errorExpected, (err) => {
-        err.name.should.eql('ValidationError');
+        err.name.should.equal('InvalidOption');
+        err.option.should.equal('domain');
       });
   });
 });

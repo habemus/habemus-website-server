@@ -109,7 +109,7 @@ describe('websiteCtrl.resolve(domain)', function () {
         ASSETS = assets;
 
         var options = aux.genOptions({
-          websiteHostIpAddresses: ['1.1.1.1', '0.0.0.0'],
+          websiteServerIpAddresses: ['1.1.1.1', '0.0.0.0'],
           domainVerificationSampleSize: 5,
           domainActivationThreshold: 0.6,
           maxDomainFailureCount: 5
@@ -128,23 +128,20 @@ describe('websiteCtrl.resolve(domain)', function () {
         // create some records
         return Bluebird.all([
           // project-1, active
-          domainRecordCtrl.create('www.my-domain.com', {
-            projectId: 'project-1-id',
+          domainRecordCtrl.create('project-1-id', 'www.my-domain.com', {
             verification: {
               code: 'someverificationcode'
             }
           }),
           // project-1, not active
-          domainRecordCtrl.create('another.my-domain.com', {
-            projectId: 'project-1-id',
+          domainRecordCtrl.create('project-1-id', 'another.my-domain.com', {
             verification: {
               code: 'someverificationcode'
             }
           }),
 
           // project-2, active
-          domainRecordCtrl.create('yet.another.my-domain.com', {
-            projectId: 'project-2-id',
+          domainRecordCtrl.create('project-2-id', 'yet.another.my-domain.com', {
             verification: {
               code: 'someverificationcode'
             }

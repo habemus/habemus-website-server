@@ -131,7 +131,6 @@ domainRecordSchema.index(
  * Normalize data before running validation
  */
 domainRecordSchema.pre('validate', function (next) {
-
   /**
    * Ensure the domain does not start with `www.`
    */

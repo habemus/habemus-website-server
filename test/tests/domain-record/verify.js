@@ -54,7 +54,7 @@ describe('domainRecordCtrl.verify(record)', function () {
         ASSETS = assets;
 
         var options = aux.genOptions({
-          websiteHostIpAddresses: ['1.1.1.1', '0.0.0.0'],
+          websiteServerIpAddresses: ['1.1.1.1', '0.0.0.0'],
           domainVerificationSampleSize: 5,
           domainActivationThreshold: 0.6,
           maxDomainFailureCount: 5
@@ -68,8 +68,7 @@ describe('domainRecordCtrl.verify(record)', function () {
       .then((websiteApp) => {
         domainRecordCtrl = websiteApp.controllers.domainRecord;
 
-        return domainRecordCtrl.create('www.habemus.xyz', {
-          projectId: 'project-1',
+        return domainRecordCtrl.create('project-1', 'www.habemus.xyz', {
           verification: {
             code: 'someverificationcode'
           }

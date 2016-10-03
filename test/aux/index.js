@@ -30,7 +30,7 @@ exports.defaultOptions = {
 
   hostDomain: 'habemus.xyz',
 
-  websiteHostIpAddresses: ['127.0.0.0', '127.0.0.1']
+  websiteServerIpAddresses: ['127.0.0.0', '127.0.0.1']
 };
 
 /**

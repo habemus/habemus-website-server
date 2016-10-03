@@ -54,7 +54,7 @@ describe('domainRecordCtrl - get methods', function () {
         ASSETS = assets;
 
         var options = aux.genOptions({
-          websiteHostIpAddresses: ['1.1.1.1', '0.0.0.0'],
+          websiteServerIpAddresses: ['1.1.1.1', '0.0.0.0'],
           domainVerificationSampleSize: 5,
           domainActivationThreshold: 0.6,
           maxDomainFailureCount: 5
@@ -68,8 +68,7 @@ describe('domainRecordCtrl - get methods', function () {
       .then((websiteApp) => {
         domainRecordCtrl = websiteApp.controllers.domainRecord;
 
-        return domainRecordCtrl.create('www.habemus.xyz', {
-          projectId: 'project-1',
+        return domainRecordCtrl.create('project-1', 'www.habemus.xyz', {
           verification: {
             code: 'someverificationcode'
           }
@@ -105,15 +104,9 @@ describe('domainRecordCtrl - get methods', function () {
     it('should list all DomainRecords associated to a given website', function () {
 
       return Bluebird.all([
-        domainRecordCtrl.create('www.test.habemus.xyz', {
-          projectId: 'project-2',
-        }),
-        domainRecordCtrl.create('www.another-test.habemus.xyz', {
-          projectId: 'project-2',
-        }),
-        domainRecordCtrl.create('www.other.habemus.xyz', {
-          projectId: 'project-3',
-        })
+        domainRecordCtrl.create('project-2', 'www.test.habemus.xyz'),
+        domainRecordCtrl.create('project-2', 'www.another-test.habemus.xyz'),
+        domainRecordCtrl.create('project-3', 'www.other.habemus.xyz')
       ])
       .then(() => {
         return domainRecordCtrl.listProjectRecords('project-2');
@@ -129,15 +122,9 @@ describe('domainRecordCtrl - get methods', function () {
 
     it('should allow scoping list to a given set of statuses', function () {
       return Bluebird.all([
-        domainRecordCtrl.create('www.test.habemus.xyz', {
-          projectId: 'project-2',
-        }),
-        domainRecordCtrl.create('www.another-test.habemus.xyz', {
-          projectId: 'project-2',
-        }),
-        domainRecordCtrl.create('www.other.habemus.xyz', {
-          projectId: 'project-3',
-        })
+        domainRecordCtrl.create('project-2', 'www.test.habemus.xyz'),
+        domainRecordCtrl.create('project-2', 'www.another-test.habemus.xyz'),
+        domainRecordCtrl.create('project-3', 'www.other.habemus.xyz')
       ])
       .then((records) => {
         return domainRecordCtrl.listProjectRecords('project-2', 'active');
@@ -170,7 +157,6 @@ describe('domainRecordCtrl - get methods', function () {
           return domainRecordCtrl.verify(record);
         })
         .then((record) => {
-
           return domainRecordCtrl.getByActiveDomain('www.habemus.xyz');
 
         })
