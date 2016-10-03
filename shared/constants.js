@@ -69,6 +69,7 @@ exports.RECORD_STATUSES = {
   VERIFYING: 'verifying',
   FAILED: 'verification-failed',
   FAILED_PERMANENTLY: 'verification-failed-permanently',
+  SCHEDULED_FOR_REMOVAL: 'scheduled-for-removal',
 };
 exports.VALID_RECORD_STATUSES = _objValues(exports.RECORD_STATUSES);
 

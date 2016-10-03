@@ -117,6 +117,32 @@ module.exports = function (app, options) {
     return DomainRecord.find(query);
   };
 
+  /**
+   * Schedules a domain record for removal
+   * 
+   * @param  {DomainRecord} record
+   * @param  {String} reason
+   * @return {Bluebird}
+   */
+  domainRecordCtrl.scheduleRemoval = function (record, reason) {
+    if (!(record instanceof DomainRecord)) {
+      return Bluebird.reject(new errors.InvalidOption('record', 'required'));
+    }
+    
+    if (!reason) {
+      return Bluebird.reject(new errors.InvalidOption('reason', 'required'));
+    }
+
+    /**
+     * Set status
+     */
+    record.setStatus(CONSTANTS.RECORD_STATUSES.SCHEDULED_FOR_REMOVAL, reason);
+
+    return record.save().then(() => {
+      return;
+    });
+  };
+
   require('./verify')(domainRecordCtrl, app, options);
 
   return domainRecordCtrl;

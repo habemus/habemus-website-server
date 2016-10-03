@@ -41,6 +41,26 @@ exports.getDomainRecord = function (authToken, projectId, recordId) {
   );
 };
 
+exports.verifyDomainRecord = function (authToken, projectId, recordId) {
+  if (!authToken) { return Bluebird.reject(new errors.Unauthorized()); }
+
+  if (!projectId) {
+    return Bluebird.reject(new errors.InvalidOption('projectId', 'required', 'projectId is required'));
+  }
+
+  if (!recordId) {
+    return Bluebird.reject(new errors.InvalidOption('recordId', 'required', 'recordId is required'));
+  }
+
+  return this._authReq(
+    'POST',
+    '/project/' + projectId + '/domain-record/' + recordId + '/verify',
+    {
+      authToken: authToken
+    }
+  );
+};
+
 exports.listDomainRecords = function (authToken, projectId) {
   if (!authToken) { return Bluebird.reject(new errors.Unauthorized()); }
 

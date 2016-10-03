@@ -46,7 +46,7 @@ module.exports = function (domainRecordCtrl, app, options) {
      * @type {String}
      */
     var verificationCode      = record.get('verification.code');
-    var verificationSubdomain = record.get('verification.detail.subdomain');
+    var verificationSubdomain = record.get('verification.subdomain');
 
     var verificationDomain = verificationSubdomain + '.' + domain;
 

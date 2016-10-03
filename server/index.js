@@ -59,6 +59,8 @@ function hWebsite(options) {
       require('./middleware/authenticate-private').bind(null, app);
     app.middleware.verifyProjectPermissions =
       require('./middleware/verify-project-permissions').bind(null, app);
+    app.middleware.loadDomainRecord =
+      require('./middleware/load-domain-record').bind(null, app);
     
     // define description route
     // app.get('/hello', function (req, res) {

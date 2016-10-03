@@ -12,13 +12,13 @@ module.exports = function (app, options) {
   /**
    * Function that retrieves the domainRecord's identifier
    * Defaults to getting the identifier from the requests's 
-   * `params.identifier` property
+   * `params.recordId` property
    * 
    * @param  {Express Request} req
    * @return {String}
    */
   var _identifier = options.identifier || function (req) {
-    return req.params.identifier;
+    return req.params.recordId;
   };
 
   /**

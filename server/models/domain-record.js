@@ -62,6 +62,10 @@ var domainRecordSchema = new mongoose.Schema({
    * @type {Object}
    */
   verification: {
+    subdomain: {
+      type: String,
+      default: 'habemus-verify',
+    },
     code: {
       type: String,
       default: function () {
@@ -75,6 +79,22 @@ var domainRecordSchema = new mongoose.Schema({
     detail: {
       type: Object,
       default: {},
+    },
+
+    /**
+     * Stores the computed partial results
+     * for the verification
+     *
+     * each partial result has the following format: {
+     *   score: Number,
+     *   active: Boolean
+     * }
+     * 
+     * @type {Object}
+     */
+    computedPartialResults: {
+      type: Object,
+      default: {}
     },
   },
 
@@ -162,7 +182,7 @@ module.exports = function (conn, app, options) {
    * 
    * @type {[type]}
    */
-  const MAX_DOMAIN_FAILURE_COUNT = options.maxDomainFailureCount || 5;
+  const MAX_DOMAIN_FAILURE_COUNT = options.maxDomainFailureCount || 100;
 
   // STATICS
 
@@ -232,7 +252,7 @@ module.exports = function (conn, app, options) {
    * 
    * @param {Object} result
    */
-  domainRecordSchema.methods.addVerificationResult = function (result) {
+  domainRecordSchema.methods.addVerificationResult = function (result, options) {
 
     if (!result.txtDiff) {
       throw new TypeError('result.txtDiff is required');
@@ -245,6 +265,14 @@ module.exports = function (conn, app, options) {
     if (!result.ipv4Diff) {
       throw new TypeError('result.ipv4Diff is required');
     }
+
+    options = options || {
+      /**
+       * Whether to save the failure to the overall failure count
+       * @type {Boolean}
+       */
+      countFailure: false
+    };
 
     // ensure the verification results is an array
     var results = this.verification.detail.results || [];
@@ -272,12 +300,21 @@ module.exports = function (conn, app, options) {
 
     var _active = (_cnameActive && _txtActive && _ipv4Active);
 
-    // // check if the verification has failed
-    // var _cnameFailed = (this.get('enableWwwAlias') && scores.cnameScore <= DOMAIN_FAILURE_THRESHOLD);
-    // var _txtFailed   = scores.txtScore <= DOMAIN_FAILURE_THRESHOLD;
-    // var _ipv4Failed  = scores.ipv4Score <= DOMAIN_FAILURE_THRESHOLD;
-
-    // var _failed = (_cnameFailed || _txtFailed || _ipv4Failed);
+    // set partial statuses
+    this.set('verification.computedPartialResults', {
+      cname: {
+        score: scores.cnameScore,
+        active: _cnameActive,
+      },
+      txt: {
+        score: scores.txtScore,
+        active: _txtActive,
+      },
+      ipv4: {
+        score: scores.ipv4Score,
+        active: _ipv4Active
+      }
+    });
     
     if (results.length === VERIFICATION_SAMPLE_SIZE) {
 
@@ -295,8 +332,9 @@ module.exports = function (conn, app, options) {
         // amount of times
         var failureCount = this.get('verification.detail.failureCount') || 0;
 
-        // increment failureCount
-        failureCount += 1;
+        // increment failureCount if the `countFailure` option is set
+        // by default, the failure count is not counted.
+        failureCount = (options.countFailure) ? failureCount + 1 : failureCount;
 
         // save the failureCount
         this.set('verification.detail.failureCount', failureCount);
