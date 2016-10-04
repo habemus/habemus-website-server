@@ -94,7 +94,7 @@ function hWebsite(options) {
     // app.cron.domainVerification.start();
     
     // setup workers
-    // return require('./workers')(app, options);
+    return require('./workers')(app, options);
   })
   .then(() => {
     return app;

@@ -9,17 +9,27 @@ module.exports = function (app, options) {
     require('./h-project')(app, options),
     require('./h-account')(app, options),
     require('./message-api')(app, options),
+    require('./rabbit-mq')(app, options),
   ])
   .then((services) => {
-    // ensure nothing is returned by the promise
+
+    app.services = {};
     
-    app.services = {
-      log: services[0],
-      mongoose: services[1],
-      hProject: services[2],
-      hAccount: services[3],
-      messageAPI: services[4],
-    };
+    app.services.log = services[0];
+    app.services.mongoose = services[1];
+    app.services.hProject = services[2];
+    app.services.hAccount = services[3];
+    app.services.messageAPI = services[4];
+    app.services.rabbitMQ = services[5];
+
+    // setup second batch of services
+    return Bluebird.all([
+      require('./h-website-events-publisher')(app, options),
+    ]);
+  })
+  .then((services) => {
+
+    app.services.hWebsiteEventsPublisher = services[0];
 
     return;
   });

@@ -7,12 +7,14 @@ const Bluebird      = require('bluebird');
 
 module.exports = function (app, options) {
 
-  function HDeployer(options) {
+  function HWebsiteDeployer(options) {
     HWorkerServer.call(this, options);
   }
-  util.inherits(HDeployer, HWorkerServer);
+  util.inherits(HWebsiteDeployer, HWorkerServer);
 
-  HDeployer.prototype.workerFn = function (project, logger) {
+  HWebsiteDeployer.prototype.workerFn = function (project, logger) {
+
+    console.log('deploy request received', project);
 
     if (!project._id) {
       return Bluebird.reject(new app.errors.InvalidOption('project._id', 'required'));
@@ -22,14 +24,18 @@ module.exports = function (app, options) {
     var projectVersionCode = project.versionCode || null;
 
     // get the website
-    return app.controllers.website.resolve(projectId, projectVersionCode)
+    return app.controllers.website.resolveProject(projectId, projectVersionCode)
       .then((website) => {
+
+        return app.services.hWebsiteEventsPublisher.publish('updated', {
+          website: website,
+        });
 
       });
   };
 
 
-  var hDeployer = new HDeployer();
+  var hDeployer = new HWebsiteDeployer({ name: 'h-website-deployer' });
 
   return hDeployer.connect(app.services.rabbitMQ.connection)
     .then(() => {

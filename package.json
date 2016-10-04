@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@habemus/url-whitelist": "^1.0.0",
+    "amqplib": "^0.4.2",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "bunyan": "^1.8.1",
@@ -17,9 +18,8 @@
     "cors": "^2.8.1",
     "express": "^4.14.0",
     "express-jwt": "^5.0.0",
-    "h-account": "git+ssh://git@bitbucket.org:habemus-tutti/h-account.git",
     "h-dns": "git+ssh://git@bitbucket.org:habemus-tutti/h-dns.git",
-    "h-project": "git+ssh://git@bitbucket.org:habemus-tutti/h-project.git",
+    "h-mq-events": "git+ssh://git@bitbucket.org/habemus-tutti/h-mq-events.git",
     "h-worker": "git+ssh://git@bitbucket.org:habemus-tutti/h-worker.git",
     "json-message": "^2.0.0-beta.5",
     "mongoose": "^4.6.1",
@@ -33,6 +33,7 @@
     "gulp-istanbul": "^1.1.1",
     "gulp-mocha": "^3.0.1",
     "gulp-nodemon": "^2.2.1",
+    "jsonwebtoken": "^7.1.9",
     "mockery": "^1.7.0",
     "server-destroy": "^1.0.1",
     "should": "^11.1.0"

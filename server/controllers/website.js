@@ -12,8 +12,9 @@ const CONSTANTS = require('../../shared/constants');
  */
 const WEBSITE_MODEL = {
   _id: String,
+  code: String,
   signedURL: String,
-  activeRecords: [{
+  activeDomainRecords: [{
     domain: String,
     enableWwwAlias: Boolean,
   }],
@@ -92,7 +93,7 @@ module.exports = function (app, options) {
     // var _projectId;
 
     return app.services.hProject
-      .getByCode(H_PROJECT_TOKEN, projectCode)
+      .get(H_PROJECT_TOKEN, projectCode, { byCode: true })
       .then((project) => {
         return websiteCtrl.resolveProject(project._id, projectVersionCode);
       });
@@ -128,12 +129,33 @@ module.exports = function (app, options) {
     projectVersionCode = projectVersionCode || null;
 
     // promise for the projectVersion retrieval
-    var projectVersionPromise = app.services.hProject.getProjectVersion(
+    var projectVersionPromise;
+
+    if (projectVersionCode) {
+      projectVersionPromise = app.services.hProject.getVersion(
+        H_PROJECT_TOKEN,
+        projectId,
+        projectVersionCode,
+        {
+          distSignedURL: 'read'
+        }
+      );
+    } else {
+      projectVersionPromise = app.services.hProject.getLatestVersion(
+        H_PROJECT_TOKEN,
+        projectId,
+        {
+          distSignedURL: 'read'
+        }
+      );
+    }
+
+    // promise for loading data on the project
+    var projectPromise = app.services.hProject.get(
       H_PROJECT_TOKEN,
       projectId,
-      projectVersionCode,
       {
-        distSignedURL: 'read'
+        byCode: false,
       }
     );
 
@@ -141,29 +163,34 @@ module.exports = function (app, options) {
     // if there is a projectVersionCode, no active
     // records should be retrieved, as versioning
     // is exclusive to the habemus url.
-    var activeRecordsPromise;
+    var activeDomainRecordsPromise;
 
     if (!projectVersionCode) {
-      activeRecordsPromise = app.controllers.domainRecord.listProjectRecords(projectId, [
+      activeDomainRecordsPromise = app.controllers.domainRecord.listProjectRecords(projectId, [
         CONSTANTS.RECORD_STATUSES.ACTIVE
       ]);
     } else {
-      activeRecordsPromise = [];
+      activeDomainRecordsPromise = [];
     }
 
     return Bluebird.all([
+      projectPromise,
       projectVersionPromise,
-      activeRecordsPromise
+      activeDomainRecordsPromise
     ])
     .then((results) => {
 
-      var version       = results[0];
-      var activeRecords = results[1];
+      var project             = results[0];
+      var version             = results[1];
+      var activeDomainRecords = results[2];
 
       return {
         _id: projectId,
+        code: project.code,
+        billingStatus: project.billingStatus,
+
         signedURL: version.distSignedURL,
-        activeRecords: activeRecords.map((record) => {
+        activeDomainRecords: activeDomainRecords.map((record) => {
           return {
             domain: record.domain,
             enableWwwAlias: record.enableWwwAlias,
