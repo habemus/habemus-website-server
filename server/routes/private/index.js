@@ -1,15 +1,22 @@
 // third-party
-const bodyParser = require('body-parser');
-const Bluebird   = require('bluebird');
+const express = require('express');
 
 module.exports = function (app, options) {
 
-  const errors = app.errors;
+  var privateApp = express();
 
-  /**
-   * Authenticate all private routes
-   */
-  app.use('/_', app.middleware.authenticatePrivate(options));
+  // expose app's properties
+  privateApp.constants   = app.constants;
+  privateApp.errors      = app.errors;
+  privateApp.controllers = app.controllers;
+  privateApp.middleware  = app.middleware;
+  privateApp.services    = app.services;
 
-  require('./website')(app, options);
+  require('./website')(privateApp, options);
+
+  // mount the private app onto the private route
+  app.use('/_',
+    app.middleware.authenticatePrivate(options),
+    privateApp
+  );
 };

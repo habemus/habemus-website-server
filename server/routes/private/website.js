@@ -2,12 +2,7 @@
 const bodyParser = require('body-parser');
 const Bluebird   = require('bluebird');
 
-const WEBSITE_DATA = {
-  _id: true,
-  signedURL: true,
-  activeRecords: true,
-  'billingStatus.value': true,
-};
+const interfaces = require('../interfaces');
 
 module.exports = function (app, options) {
 
@@ -15,7 +10,7 @@ module.exports = function (app, options) {
 
   const websiteCtrl = app.controllers.website;
 
-  app.get('/_/website/:domain/resolve',
+  app.get('/website/:domain/resolve',
     function (req, res, next) {
 
       var domain = req.params.domain;
@@ -23,7 +18,7 @@ module.exports = function (app, options) {
       app.controllers.website.resolve(domain)
         .then((website) => {
 
-          var msg = app.services.messageAPI.item(website, WEBSITE_DATA);
+          var msg = app.services.messageAPI.item(website, interfaces.WEBSITE_DATA);
           res.json(msg);
 
         })

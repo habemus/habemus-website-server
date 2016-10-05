@@ -2,20 +2,7 @@
 const bodyParser = require('body-parser');
 const Bluebird   = require('bluebird');
 
-const RECORD_DATA = {
-  _id: true,
-  projectId: true,
-  domain: true,
-  enableWwwAlias: true,
-  'status.value': true,
-  'status.updatedAt': true,
-  'verification.subdomain': true,
-  'verification.code': true,
-  'verification.method': true,
-  'verification.detail': true,
-  'verification.computedPartialResults': true,
-  ipAddresses: true,
-};
+const interfaces = require('../interfaces');
 
 module.exports = function (app, options) {
 
@@ -43,7 +30,7 @@ module.exports = function (app, options) {
 
       app.controllers.domainRecord.create(projectId, domain, recordData)
         .then((record) => {
-          var msg = app.services.messageAPI.item(record, RECORD_DATA);
+          var msg = app.services.messageAPI.item(record, interfaces.RECORD_DATA);
           res.json(msg);
         })
         .catch(next);
@@ -71,7 +58,7 @@ module.exports = function (app, options) {
       )
       .then((records) => {
 
-        var msg = app.services.messageAPI.list(records, RECORD_DATA);
+        var msg = app.services.messageAPI.list(records, interfaces.RECORD_DATA);
         res.json(msg);
       })
       .catch(next);
@@ -91,7 +78,7 @@ module.exports = function (app, options) {
       return app.controllers.domainRecord.verify(req.domainRecord)
         .then((record) => {
 
-          var msg = app.services.messageAPI.item(record, RECORD_DATA);
+          var msg = app.services.messageAPI.item(record, interfaces.RECORD_DATA);
           res.json(msg);
         })
         .catch(next);
@@ -107,11 +94,9 @@ module.exports = function (app, options) {
     app.middleware.loadDomainRecord(),
     function (req, res, next) {
 
-      var msg = app.services.messageAPI.item(req.domainRecord, RECORD_DATA);
+      var msg = app.services.messageAPI.item(req.domainRecord, interfaces.RECORD_DATA);
       res.json(msg);
-
-      console.log(msg);
-
+      
     }
   );
 

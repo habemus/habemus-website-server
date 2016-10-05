@@ -1,16 +1,27 @@
 // third-party
-const bodyParser = require('body-parser');
-const Bluebird   = require('bluebird');
+const express = require('express');
 
 module.exports = function (app, options) {
 
-  const errors = app.errors;
+  var publicApp = express();
 
+  // expose app's properties
+  publicApp.constants   = app.constants;
+  publicApp.errors      = app.errors;
+  publicApp.controllers = app.controllers;
+  publicApp.middleware  = app.middleware;
+  publicApp.services    = app.services;
+
+  // setup cors middleware only onto public app
+  // and before other routes
   var _cors = app.middleware.cors({
     corsWhitelist: options.corsWhitelist
   });
-  app.options('*', _cors);
-  app.use(_cors);
+  publicApp.use(_cors);
+  publicApp.options('*', _cors);
 
-  require('./domain-record')(app, options);
+  require('./domain-record')(publicApp, options);
+
+  // mount the public app onto the public route
+  app.use('/public', publicApp);
 };

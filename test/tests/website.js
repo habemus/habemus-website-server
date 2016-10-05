@@ -5,7 +5,7 @@ const should = require('should');
 const Bluebird = require('bluebird');
 const mongoose = require('mongoose');
 const mockery  = require('mockery');
-const mockPrivateHProject = require('h-project/mock/client/private');
+const mockPrivateHProject = require('h-project-client/mock/private');
 
 const ValidationError = mongoose.Error.ValidationError;
 
@@ -93,7 +93,7 @@ describe('websiteCtrl.resolve(domain)', function () {
 
     // mock h-project/client/private
     mockery.registerMock(
-      'h-project/client/private',
+      'h-project-client/private',
       mockPrivateHProject({
         data: PROJECT_MOCK_DATA,
       })
@@ -181,9 +181,9 @@ describe('websiteCtrl.resolve(domain)', function () {
         .then((website) => {
           website._id.should.be.instanceof(String);
           website.signedURL.should.be.instanceof(String);
-          website.activeRecords.length.should.eql(1);
-          website.activeRecords[0].domain.should.be.instanceof(String);
-          website.activeRecords[0].enableWwwAlias.should.eql(true);
+          website.activeDomainRecords.length.should.eql(1);
+          website.activeDomainRecords[0].domain.should.be.instanceof(String);
+          website.activeDomainRecords[0].enableWwwAlias.should.eql(true);
         });
     });
 
@@ -203,8 +203,8 @@ describe('websiteCtrl.resolve(domain)', function () {
           website.signedURL.should.be.instanceof(String);
 
           // active records are empty, as this is a versioned url
-          website.activeRecords.should.be.instanceof(Array);
-          website.activeRecords.length.should.eql(0);
+          website.activeDomainRecords.should.be.instanceof(Array);
+          website.activeDomainRecords.length.should.eql(0);
         });
     });
 
@@ -215,8 +215,8 @@ describe('websiteCtrl.resolve(domain)', function () {
           website.signedURL.should.be.instanceof(String);
 
           // active records should contain a domain
-          website.activeRecords.should.be.instanceof(Array);
-          website.activeRecords.length.should.eql(1);
+          website.activeDomainRecords.should.be.instanceof(Array);
+          website.activeDomainRecords.length.should.eql(1);
         });
     });
 
@@ -228,8 +228,8 @@ describe('websiteCtrl.resolve(domain)', function () {
         .then((website) => {
           website._id.should.be.instanceof(String);
           website.signedURL.should.be.instanceof(String);
-          website.activeRecords.should.be.instanceof(Array);
-          website.activeRecords.length.should.eql(0);
+          website.activeDomainRecords.should.be.instanceof(Array);
+          website.activeDomainRecords.length.should.eql(0);
         });
     });
   });
