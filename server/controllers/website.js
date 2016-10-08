@@ -117,26 +117,35 @@ module.exports = function (app, options) {
    * and projectVersionCode
    * 
    * @param  {String} projectId
-   * @param  {String} projectVersionCode
+   * @param  {String} requestedVersionCode
    * @return {Bluebird -> Website}
    */
-  websiteCtrl.resolveProject = function (projectId, projectVersionCode) {
+  websiteCtrl.resolveProject = function (projectId, requestedVersionCode) {
 
     if (!projectId) {
       return Bluebird.reject(new errors.InvalidOption('projectId', 'required'));
     }
 
     // defaults to `null` which means 'latest'
-    projectVersionCode = projectVersionCode || null;
+    requestedVersionCode = requestedVersionCode || null;
+
+    /**
+     * The websiteId consists of the projectId-requestedVersionCode
+     * It is important to note that the websiteId does not rely
+     * directly on the project's version, but on the requestedVersionCode.
+     * @type {String}
+     */
+    var websiteId = requestedVersionCode ?
+      projectId + '-' + requestedVersionCode : projectId;
 
     // promise for the projectVersion retrieval
     var projectVersionPromise;
 
-    if (projectVersionCode) {
+    if (requestedVersionCode) {
       projectVersionPromise = app.services.hProject.getVersion(
         H_PROJECT_TOKEN,
         projectId,
-        projectVersionCode,
+        requestedVersionCode,
         {
           distSignedURL: 'read'
         }
@@ -161,12 +170,12 @@ module.exports = function (app, options) {
     );
 
     // promise for active records retrieval
-    // if there is a projectVersionCode, no active
+    // if there is a requestedVersionCode, no active
     // records should be retrieved, as versioning
     // is exclusive to the habemus url.
     var activeDomainRecordsPromise;
 
-    if (!projectVersionCode) {
+    if (!requestedVersionCode) {
       activeDomainRecordsPromise = app.controllers.domainRecord.listProjectRecords(projectId, [
         CONSTANTS.RECORD_STATUSES.ACTIVE
       ]);
@@ -186,9 +195,16 @@ module.exports = function (app, options) {
       var activeDomainRecords = results[2];
 
       return {
-        _id: projectId,
+        /**
+         * WebsiteId and versionCode are very special
+         * properties of the website. They are built
+         * from project and version properties
+         * but are not a direct reflection of them.
+         * @type {String}
+         */
+        _id: websiteId,
+        versionCode: requestedVersionCode,
         code: project.code,
-        versionCode: version.code,
         billingStatus: project.billingStatus,
 
         signedURL: version.distSignedURL,
