@@ -13,6 +13,7 @@ const CONSTANTS = require('../../shared/constants');
 const WEBSITE_MODEL = {
   _id: String,
   code: String,
+  versionCode: String,
   signedURL: String,
   activeDomainRecords: [{
     domain: String,
@@ -187,6 +188,7 @@ module.exports = function (app, options) {
       return {
         _id: projectId,
         code: project.code,
+        versionCode: version.code,
         billingStatus: project.billingStatus,
 
         signedURL: version.distSignedURL,

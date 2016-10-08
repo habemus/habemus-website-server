@@ -1,6 +1,7 @@
 exports.WEBSITE_DATA = {
   _id: true,
   code: true,
+  versionCode: true,
   signedURL: true,
   activeDomainRecords: true,
   'billingStatus.value': true,
