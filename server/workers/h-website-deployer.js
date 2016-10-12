@@ -12,11 +12,13 @@ module.exports = function (app, options) {
   }
   util.inherits(HWebsiteDeployer, HWorkerServer);
 
-  HWebsiteDeployer.prototype.workerFn = function (project, logger) {
+  HWebsiteDeployer.prototype.workerFn = function (payload, logger) {
 
-    console.log('deploy request received', project);
+    console.log('deploy request received', payload);
 
-    if (!project._id) {
+    var project = payload.project;
+
+    if (!project || !project._id) {
       return Bluebird.reject(new app.errors.InvalidOption('project._id', 'required'));
     }
 
