@@ -42,3 +42,10 @@ has access to.
 
 In order to associate a custom domain to a project, the user must register the custom domain
 as a domain that relates to a specific project's _id.
+
+# h-website-deployer
+
+h-website-deployer's only function is to resolve a projectId into a website and forward
+the deploy request to all h-website-servers. This architecture enables the deployment
+process to be modeled as a worker queue (with message guaranteed to be queued and executed by some h-website instance) and that the communication with the multiple instances of h-website-server to be modeled as an event (so that the publishing of
+the message does not necessary queue it anywhere)

@@ -16,20 +16,21 @@ module.exports = function (app, options) {
 
     console.log('deploy request received', payload);
 
-    var project = payload.project;
+    var projectId   = payload.projectId;
+    var versionCode = payload.versionCode || null;
 
-    if (!project || !project._id) {
-      return Bluebird.reject(new app.errors.InvalidOption('project._id', 'required'));
+    if (!projectId) {
+      return Bluebird.reject(new app.errors.InvalidOption('projectId', 'required'));
     }
 
-    var projectId = project._id;
-    var projectVersionCode = project.versionCode || null;
-
     // get the website
-    return app.controllers.website.resolveProject(projectId, projectVersionCode)
+    return app.controllers.website.resolveProject(projectId, versionCode)
       .then((website) => {
 
-        return app.services.hWebsiteEventsPublisher.publish('updated', {
+        return app.services.hWebsiteEventsPublisher.publish('deployed', {
+          /**
+           * Pass the resolved website.
+           */
           website: website,
         });
 
