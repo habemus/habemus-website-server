@@ -265,13 +265,13 @@ module.exports = function (conn, app, options) {
       throw new TypeError('result.ipv4Diff is required');
     }
 
-    options = options || {
-      /**
-       * Whether to save the failure to the overall failure count
-       * @type {Boolean}
-       */
-      countFailure: false
-    };
+    options = options || {};
+    
+    /**
+     * Whether to save the failure to the overall failure count
+     * @type {Boolean}
+     */
+    options.countFailure = (typeof options.countFailure === 'undefined') ? true : false;
 
     // ensure the verification results is an array
     var results = this.verification.detail.results || [];

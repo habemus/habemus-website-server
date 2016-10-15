@@ -2,6 +2,9 @@
 const mongoose = require('mongoose');
 const Bluebird = require('bluebird');
 
+// set mongoose's default promise constructor
+mongoose.Promise = Bluebird;
+
 module.exports = function (app, options) {
   
   var mongooseService = {};

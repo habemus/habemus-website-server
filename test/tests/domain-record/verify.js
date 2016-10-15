@@ -16,6 +16,8 @@ describe('domainRecordCtrl.verify(record)', function () {
   var ASSETS;
   var domainRecordCtrl;
 
+  var dnsMockResults = {};
+
   beforeEach(function () {
 
     this.timeout(10000);
@@ -29,17 +31,28 @@ describe('domainRecordCtrl.verify(record)', function () {
     // mock dns module and make it respond with the correct data
     var dnsMock = {
       resolveCname: function (hostname, cb) {
-        cb(null, [
-          'habemus.xyz'
-        ]);
+
+        if (!dnsMockResults.resolveCname) {
+          throw new Error('dnsMockResults undefined for resolveCname');
+        }
+
+        cb(null, dnsMockResults.resolveCname);
       },
       resolve4: function (hostname, cb) {
-        cb(null, ['1.1.1.1', '0.0.0.0']);
+
+        if (!dnsMockResults.resolve4) {
+          throw new Error('dnsMockResults undefined for resolve4');
+        }
+
+        cb(null, dnsMockResults.resolve4);
       },
       resolveTxt: function (hostname, cb) {
-        cb(null, [
-          ['someverificationcode'],
-        ]);
+
+        if (!dnsMockResults.resolveTxt) {
+          throw new Error('dnsMockResults undefined for resolveTxt');
+        }
+
+        cb(null, dnsMockResults.resolveTxt);
       },
     };
     mockery.registerMock('dns', dnsMock);
@@ -86,11 +99,25 @@ describe('domainRecordCtrl.verify(record)', function () {
 
   afterEach(function () {
     mockery.disable();
+
+    /**
+     * Reset mock results
+     * @type {Object}
+     */
+    dnsMockResults = {};
     
     return aux.teardown();
   });
 
   it('should progressively verify the status and compute the results', function () {
+
+    /**
+     * Set successful mock results
+     * @type {Array}
+     */
+    dnsMockResults.resolveCname = ['habemus.xyz'];
+    dnsMockResults.resolve4     = ['1.1.1.1', '0.0.0.0'];
+    dnsMockResults.resolveTxt   = [['someverificationcode']];
 
     // 1
     return domainRecordCtrl.verify(ASSETS.record)

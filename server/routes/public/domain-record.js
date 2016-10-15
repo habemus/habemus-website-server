@@ -75,7 +75,9 @@ module.exports = function (app, options) {
     app.middleware.loadDomainRecord(),
     function (req, res, next) {
 
-      return app.controllers.domainRecord.verify(req.domainRecord)
+      return app.controllers.domainRecord.verify(req.domainRecord, {
+          countFailure: false
+        })
         .then((record) => {
 
           var msg = app.services.messageAPI.item(record, interfaces.RECORD_DATA);
