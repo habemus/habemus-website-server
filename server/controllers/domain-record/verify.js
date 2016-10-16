@@ -37,6 +37,11 @@ module.exports = function (domainRecordCtrl, app, options) {
       return Bluebird.reject(new errors.InvalidOption('record', 'required'));
     }
 
+    if (record.getStatus() === CONSTANTS.RECORD_STATUSES.ACTIVE) {
+      // record is already active, thus does not need to be verified again
+      return record;
+    }
+
     /**
      * The domain that is to be verified.
      * @type {String}
@@ -99,6 +104,19 @@ module.exports = function (domainRecordCtrl, app, options) {
             );
 
           });
+
+        // send an email
+        // TODO: implement `getOwner` PRIVATE API on h-project
+        // requires better architectural study
+        // 
+        // app.services.hMailer.schedule({
+        //   from: FROM_EMAIL,
+        //   to: email,
+        //   template: 'website/domain-connected',
+        //   data: {
+        //     domain: record.domain,
+        //   },
+        // });
       }
 
       // always return the record
