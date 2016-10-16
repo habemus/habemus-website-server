@@ -1,7 +1,7 @@
 {
   "name": "h-website",
-  "version": "0.0.0",
-  "description": "Responsible for   - registering relationships between domains and a project   - verifying the validity of registered domains   - resolving domain names into information regarding where the served files are stored   - resolving domain names into information regarding other domains that are related to the     same storage",
+  "version": "1.0.0-beta",
+  "description": "",
   "main": "server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@habemus/env-options": "^0.2.0",
     "@habemus/url-whitelist": "^1.0.0",
     "amqplib": "^0.4.2",
     "bluebird": "^3.4.6",
