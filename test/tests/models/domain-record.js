@@ -401,6 +401,8 @@ describe('DomainRecord model', function () {
         domain: 'test.habemus.xyz'
       });
 
+      record.startVerification();
+
       var results = _genArrayOfClones(10, {
         cnameDiff: {
           missing: [],
@@ -430,7 +432,7 @@ describe('DomainRecord model', function () {
 
     it('should set the status of the record to `verification-failed-permanently` if the verification fails and the verification period has expired', function () {
 
-      this.timeout(6000);
+      this.timeout(7000);
 
       var record = new DomainRecord({
         domain: 'test.habemus.xyz',
@@ -459,7 +461,7 @@ describe('DomainRecord model', function () {
       });
 
       // wait 5 seconds (time that we've configured the `domainVerificationExpiresIn`)
-      return _wait(5000).then(() => {
+      return _wait(6000).then(() => {
 
         // apply the mistaken results
         mistakenResults.forEach((r) => {

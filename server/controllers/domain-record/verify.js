@@ -12,6 +12,20 @@ module.exports = function (domainRecordCtrl, app, options) {
   const DomainRecord = app.services.mongoose.models.DomainRecord;
 
   /**
+   * Restarts the verification process (modifying the `verification.expiresAt` and the
+   * status to `pending-verification`)
+   * 
+   * @param  {DomainRecord} record
+   * @param  {String} reason
+   * @return {Bluebird -> DomainRecord}
+   */
+  domainRecordCtrl.restartVerification = function (record) {
+    record.startVerification('VerificationRestarted');
+
+    return record.save();
+  };
+
+  /**
    * Executes the record verification process.
    * 
    * @param  {DomainRecord} record
@@ -59,16 +73,36 @@ module.exports = function (domainRecordCtrl, app, options) {
         txtDiff: results[2],
       });
 
+      return record.save();
+    })
+    .then((record) => {
+      // wait for the record to be saved before resolving
+      // the website, so that the record may be considered active
       var status = record.getStatus();
 
-      // if (status === CONSTANTS.RECORD_STATUSES.ACTIVE) {
-      //   app.controllers.website.getById(record.projectId)
-      //     .then((website) => {
-      //       app.controllers.event.publishWebsiteUpdated(website);
-      //     });
-      // }
+      if (status === CONSTANTS.RECORD_STATUSES.ACTIVE) {
 
-      return record.save();
+        // TODO: resolving during tests is throwing errors,
+        // as we are not mocking it correctly.
+        // study how to silence errors in tests
+        app.controllers.website.resolveProject(record.projectId)
+          .then((website) => {
+
+            return app.services.hWebsiteEventsPublisher.publish(
+              CONSTANTS.WEBSITE_EVENTS.DEPLOYED,
+              {
+                /**
+                 * Pass the resolved website.
+                 */
+                website: website,
+              }
+            );
+
+          });
+      }
+
+      // always return the record
+      return record;
     });
     
   };

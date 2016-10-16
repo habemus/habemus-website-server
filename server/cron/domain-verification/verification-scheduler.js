@@ -32,9 +32,6 @@ module.exports = function (app, options) {
     cronTime: CRON_TIME,
     // cronTime: '0,10,20,30,40,50 * * * * *',
     onTick: function() {
-
-      // console.log('reschedule temporarily failed verifications');
-
       var query = {};
 
       DomainRecord.scopeQueryByStatuses(query, [
@@ -42,6 +39,8 @@ module.exports = function (app, options) {
       ]);
 
       DomainRecord.find(query).then((records) => {
+        // console.log('===========================================')
+        // console.log('reschedule temporarily failed verifications', records);
 
         return Bluebird.all(records.map((record) => {
 

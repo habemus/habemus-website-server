@@ -34,6 +34,10 @@ exports.defaultOptions = {
 
   cronDomainVerifier: '00 0,5,10,15,20,25,30,35,40,45,50,55 * * * *',
   cronDomainVerificationScheduler: '00 00 00 * * *',
+
+  domainVerificationSampleSize: 10,
+  domainActivationThreshold: 0.6,
+  domainVerificationExpiresIn: '5s',
 };
 
 /**

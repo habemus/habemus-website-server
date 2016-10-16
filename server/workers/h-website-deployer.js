@@ -5,6 +5,9 @@ const util = require('util');
 const HWorkerServer = require('h-worker/server');
 const Bluebird      = require('bluebird');
 
+// own
+const CONSTANTS = require('../../shared/constants');
+
 module.exports = function (app, options) {
 
   function HWebsiteDeployer(options) {
@@ -27,12 +30,15 @@ module.exports = function (app, options) {
     return app.controllers.website.resolveProject(projectId, versionCode)
       .then((website) => {
 
-        return app.services.hWebsiteEventsPublisher.publish('deployed', {
-          /**
-           * Pass the resolved website.
-           */
-          website: website,
-        });
+        return app.services.hWebsiteEventsPublisher.publish(
+          CONSTANTS.WEBSITE_EVENTS.DEPLOYED,
+          {
+            /**
+             * Pass the resolved website.
+             */
+            website: website,
+          }
+        );
 
       });
   };

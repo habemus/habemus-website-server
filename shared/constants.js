@@ -78,10 +78,6 @@ exports.VALID_RECORD_STATUSES = _objValues(exports.RECORD_STATUSES);
  * 
  * @type {Object}
  */
-exports.EVENTS = {
-  WEBSITE_DOMAIN_READY: 'website-domain-ready',
-  WEBSITE_UPDATED: 'website-updated',
-  WEBSITE_ENABLED: 'website-enabled',
-  WEBSITE_DISABLED: 'website-disabled',
-  WEBSITE_HEARTBEAT: 'website-heartbeat',
+exports.WEBSITE_EVENTS = {
+  DEPLOYED: 'deployed',
 };

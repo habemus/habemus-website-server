@@ -47,20 +47,7 @@ module.exports = function (app, options) {
 
     return domainRecord.save();
   };
-
-  /**
-   * Restarts the verification process (modifying the `verification.expiresAt`)
-   * 
-   * @param  {DomainRecord} record
-   * @param  {String} reason
-   * @return {Bluebird -> DomainRecord}
-   */
-  domainRecordCtrl.restartVerification = function (record) {
-    record.startVerification('VerificationRestarted');
-
-    return record.save();
-  };
-
+  
   /**
    * Retrieves a domain record by its _id
    * 

@@ -48,6 +48,7 @@ module.exports = function (app, options) {
    */
   function _verifyRecords(records) {
 
+    // console.log('==============')
     // console.log('verify records', records);
 
     return Bluebird.all(records.map((record) => {
@@ -55,6 +56,7 @@ module.exports = function (app, options) {
     }))
     .then((records) => {
 
+      // console.log('====================')
       // console.log('verification results', records);
 
       return;
