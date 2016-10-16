@@ -32,8 +32,8 @@ exports.defaultOptions = {
 
   websiteServerIpAddresses: ['127.0.0.0', '127.0.0.1'],
 
-  cronDomainVerification: '00 0,5,10,15,20,25,30,35,40,45,50,55 * * * *',
-  cronDomainVerificationRescheduling: '00 00 00 * * *',
+  cronDomainVerifier: '00 0,5,10,15,20,25,30,35,40,45,50,55 * * * *',
+  cronDomainVerificationScheduler: '00 00 00 * * *',
 };
 
 /**

@@ -19,7 +19,7 @@ module.exports = function (app, options) {
 
   const DomainRecord = app.services.mongoose.models.DomainRecord;
 
-  const CRON_TIME = options.cronDomainVerification || DEFAULT_CRON_TIME;
+  const CRON_TIME = options.cronDomainVerifier || DEFAULT_CRON_TIME;
 
   /**
    * Auxiliary function that loads a set of records to be verified
@@ -51,9 +51,7 @@ module.exports = function (app, options) {
     // console.log('verify records', records);
 
     return Bluebird.all(records.map((record) => {
-      return app.controllers.domainRecord.verify(record, {
-        countFailure: true
-      });
+      return app.controllers.domainRecord.verify(record);
     }))
     .then((records) => {
 

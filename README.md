@@ -49,3 +49,47 @@ h-website-deployer's only function is to resolve a projectId into a website and 
 the deploy request to all h-website-servers. This architecture enables the deployment
 process to be modeled as a worker queue (with message guaranteed to be queued and executed by some h-website instance) and that the communication with the multiple instances of h-website-server to be modeled as an event (so that the publishing of
 the message does not necessary queue it anywhere)
+
+# Custom domain verification process
+
+
+## Statuses
+
+Domain records may be in 5 statuses:
+
+`pending-verification` - when the record verification process still has not started.
+`verifying` - when the record verification has started and is in process
+`active` - when the verification process succeeds
+`veritication-failed` - when the verification process failed and will be rescheduled in the future
+`verification-failed-permanently` - when the verification process has passed its deadline and thus has failed permanently and won't be rescheduled
+`scheduled-for-removal` - currently not in use, but should indicate that the domain record is scheduled to be removed in some time in the future
+
+## Cron jobs
+
+The domain verification system works based on two cron jobs:
+`verifier`: responsible for loading domains at `pending-verification` and `verifying` statuses and running DNS config verifications.
+`rescheduler`: responsible for rescheduling domain records at `verification-failed` for verification. By "rescheduling" we mean to reset the verification results and setting the domain record's status to `pending-verification`.
+
+## Process
+
+The verification process checks whether the domain's DNS configurations matches the required ones. The requirements are:
+- `A` DNS records pointing to the correct host servers' IP addresses
+- `CNAME` (in case `enableWwwAlias` === `true`) record should be pointing towards the domain without `www.`. E.g. `www.my-domain.com` -> `my-domain.com`.
+- `TXT` DNS record at `habemus-verify.my-domain.com` with the correct verification code
+
+As DNS configurations may take time to be propagated after they are configured in their DNS servers, the verification process checks for the configuration multiple times before either activating the record or marking it as failed.
+
+At least `options.domainVerificationSampleSize` (defaults to 10) verifications MUST be run and of that number of verifications, at least `options.domainActivationThreshold` % of verifications MUST have succeeded for the domain record to be activated. If the `domainActivationThreshold` is reached but the success rate is below the `domainActivationThreshold`, the domain goes to the `verification-failed` status.
+
+At that status, the domain will not be verified by the `verifier` cron job, it must be rescheduled by the `rescheduler` cron job.
+
+## Expiration
+
+Each domain record has an attribute `verificationStartedAt` that indicates when the verification process started. After `options.domainVerificationExpiresIn` milliseconds from that date, the domain verification will be considered expired and its status will be set to `verification-permanently-failed`.
+
+Domain records at the `verification-permanently-failed` status will not be automatically rescheduled by the `rescheduler` job and MUST require manual action by the user.
+
+## Emails
+
+Upon verification success, the account related to the domain record will receive an email.
+Upon verification permanent-fail, the account related to the domain record will receive an email.

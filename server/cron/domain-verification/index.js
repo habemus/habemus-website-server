@@ -1,6 +1,6 @@
 module.exports = function (app, options) {
-  var verificationJob = require('./verification')(app, options);
-  var reschedulingJob = require('./verification-rescheduling')(app, options);
+  var verificationJob = require('./verifier')(app, options);
+  var reschedulingJob = require('./verification-scheduler')(app, options);
 
   return {
     start: function () {

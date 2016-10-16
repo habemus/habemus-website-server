@@ -42,9 +42,23 @@ module.exports = function (app, options) {
 
     domainRecord.set('ipAddresses', IP_ADDRESSES);
 
-    domainRecord.setStatus('pending-verification', 'UserCreated');
+    // start the verification
+    domainRecord.startVerification('UserCreated');
 
     return domainRecord.save();
+  };
+
+  /**
+   * Restarts the verification process (modifying the `verification.expiresAt`)
+   * 
+   * @param  {DomainRecord} record
+   * @param  {String} reason
+   * @return {Bluebird -> DomainRecord}
+   */
+  domainRecordCtrl.restartVerification = function (record) {
+    record.startVerification('VerificationRestarted');
+
+    return record.save();
   };
 
   /**

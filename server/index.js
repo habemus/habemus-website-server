@@ -21,12 +21,24 @@ function hWebsite(options) {
     throw new Error('websiteServerIpAddresses is required and MUST NOT be empty');
   }
 
-  if (!options.cronDomainVerification) {
-    console.warn('cronDomainVerification not defined, falling back to using default one');
+  if (!options.cronDomainVerifier) {
+    console.warn('cronDomainVerifier not defined, falling back to using default one');
   }
 
-  if (!options.cronDomainVerificationRescheduling) {
-    console.warn('cronDomainVerificationRescheduling not defined, falling back to using default one');
+  if (!options.cronDomainVerificationScheduler) {
+    console.warn('cronDomainVerificationScheduler not defined, falling back to using default one');
+  }
+
+  if (!options.domainVerificationSampleSize) {
+    console.warn('domainVerificationSampleSize not defined, falling back to using default one (10)');
+  }
+
+  if (!options.domainActivationThreshold) {
+    console.warn('domainActivationThreshold not defined, falling back to using default one (0.6)');
+  }
+
+  if (!options.domainVerificationExpiresIn) {
+    console.warn('domainVerificationExpiresIn not defined, falling back to using default one (48h)');
   }
 
   /**

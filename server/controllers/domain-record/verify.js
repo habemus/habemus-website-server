@@ -36,12 +36,6 @@ module.exports = function (domainRecordCtrl, app, options) {
     var targetIPAddresses = record.get('ipAddresses');
 
     /**
-     * Whether to enable the www alias.
-     * @type {Boolean}
-     */
-    var enableWwwAlias = record.get('enableWwwAlias');
-
-    /**
      * Code that should be on the domain's TXT dns records
      * @type {String}
      */

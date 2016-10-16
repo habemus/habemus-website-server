@@ -10,14 +10,14 @@ const Bluebird = require('bluebird');
 // constants
 const CONSTANTS = require('../../../shared/constants');
 
-// at midnight
-const DEFAULT_CRON_TIME = '00 00 00 * * *';
+// every half an hour
+const DEFAULT_CRON_TIME = '00 00,30 * * * *';
 
 module.exports = function (app, options) {
 
   const DomainRecord = app.services.mongoose.models.DomainRecord;
 
-  const CRON_TIME = options.cronDomainVerificationRescheduling || DEFAULT_CRON_TIME;
+  const CRON_TIME = options.cronDomainVerificationScheduler || DEFAULT_CRON_TIME;
 
   /**
    * Seconds: 0-59

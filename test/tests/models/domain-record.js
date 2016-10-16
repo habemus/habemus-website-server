@@ -12,6 +12,12 @@ const ValidationError = mongoose.Error.ValidationError;
 // auxiliary
 const aux = require('../../aux');
 
+function _wait(ms) {
+  return new Bluebird((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 function _genArrayOfClones(length, obj) {
 
   var arr = [];
@@ -73,7 +79,7 @@ describe('DomainRecord model', function () {
           websiteHostIpAddresses: ['1.1.1.1', '0.0.0.0'],
           domainVerificationSampleSize: 10,
           domainActivationThreshold: 0.6,
-          maxDomainFailureCount: 5
+          domainVerificationExpiresIn: '5s',
         });
 
         ASSETS.websiteApp = createWebsiteManager(options);
@@ -107,6 +113,10 @@ describe('DomainRecord model', function () {
 
         domain: 'test.habemus.xyz',
         targetDomain: 'test.habemus.xyz',
+
+        verification: {
+          expiresAt: Date.now(),
+        }
       });
 
       // set the record status to active
@@ -120,6 +130,10 @@ describe('DomainRecord model', function () {
 
         domain: 'test.habemus.xyz',
         targetDomain: 'test.habemus.xyz',
+
+        verification: {
+          expiresAt: Date.now(),
+        }
       });
 
       // set the record status to active
@@ -148,6 +162,10 @@ describe('DomainRecord model', function () {
 
         domain: 'test.habemus.xyz',
         targetDomain: 'test.habemus.xyz',
+
+        verification: {
+          expiresAt: Date.now(),
+        }
       });
       // set the record status to pending-verification
       record1.setStatus('pending-verification', 'TestReason');
@@ -160,6 +178,10 @@ describe('DomainRecord model', function () {
 
         domain: 'test.habemus.xyz',
         targetDomain: 'test.habemus.xyz',
+
+        verification: {
+          expiresAt: Date.now(),
+        }
       });
       // set the record status to failed
       record2.setStatus('verification-failed', 'TestReason');
@@ -172,6 +194,10 @@ describe('DomainRecord model', function () {
 
         domain: 'test.habemus.xyz',
         targetDomain: 'test.habemus.xyz',
+
+        verification: {
+          expiresAt: Date.now(),
+        }
       });
       // set the record status to failed
       record3.setStatus('pending-verification', 'TestReason');
@@ -258,7 +284,7 @@ describe('DomainRecord model', function () {
   });
 
   describe('methods#addVerificationResult(verificationResult)', function () {
-    it('should add a verification result to the verification.detail.results array', function () {
+    it('should add a verification result to the verification.results array', function () {
       var record = new DomainRecord({
         domain: 'test.habemus.xyz'
       });
@@ -281,7 +307,7 @@ describe('DomainRecord model', function () {
         },
       });
 
-      record.get('verification.detail.results').length.should.equal(1);
+      record.get('verification.results').length.should.equal(1);
     });
 
     it('should set the status of the record to `verifying` if there are not enough successful verification results', function () {
@@ -400,16 +426,20 @@ describe('DomainRecord model', function () {
 
       // status should be at 'verification-failed'
       record.getStatus().should.equal('verification-failed');
-      // verification.detail.failureCount should be incremented
-      record.get('verification.detail.failureCount').should.equal(1);
     });
 
-    it('should set the status of the record to `verification-failed-permanently` if failureCount exceeds maxDomainFailureCount', function () {
+    it('should set the status of the record to `verification-failed-permanently` if the verification fails and the verification period has expired', function () {
+
+      this.timeout(6000);
+
       var record = new DomainRecord({
-        domain: 'test.habemus.xyz'
+        domain: 'test.habemus.xyz',
       });
 
-      var results = _genArrayOfClones(10, {
+      // let verification be started
+      record.startVerification('TestReason');
+
+      var mistakenResults = _genArrayOfClones(10, {
         cnameDiff: {
           missing: [],
           matches: ['test.domain.com'],
@@ -428,45 +458,18 @@ describe('DomainRecord model', function () {
         },
       });
 
-      // fail 1
-      results.forEach((r) => {
-        record.addVerificationResult(r);
-      });
-      record.getStatus().should.equal('verification-failed');
-      record.get('verification.detail.failureCount').should.equal(1);
-      record.resetVerificationResults();
+      // wait 5 seconds (time that we've configured the `domainVerificationExpiresIn`)
+      return _wait(5000).then(() => {
 
-      // fail 2
-      results.forEach((r) => {
-        record.addVerificationResult(r);
-      });
-      record.getStatus().should.equal('verification-failed');
-      record.get('verification.detail.failureCount').should.equal(2);
-      record.resetVerificationResults();
+        // apply the mistaken results
+        mistakenResults.forEach((r) => {
+          record.addVerificationResult(r);
+        });
 
-      // fail 3
-      results.forEach((r) => {
-        record.addVerificationResult(r);
+        record.getStatus().should.equal('verification-failed-permanently');
       });
-      record.getStatus().should.equal('verification-failed');
-      record.get('verification.detail.failureCount').should.equal(3);
-      record.resetVerificationResults();
 
-      // fail 4
-      results.forEach((r) => {
-        record.addVerificationResult(r);
-      });
-      record.getStatus().should.equal('verification-failed');
-      record.get('verification.detail.failureCount').should.equal(4);
-      record.resetVerificationResults();
-
-      // fail 5
-      results.forEach((r) => {
-        record.addVerificationResult(r);
-      });
-      record.getStatus().should.equal('verification-failed-permanently');
-      record.get('verification.detail.failureCount').should.equal(5);
-      record.resetVerificationResults();
     });
+
   });
 });

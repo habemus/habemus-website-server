@@ -25,9 +25,11 @@
     "h-project-client": "git+ssh://git@bitbucket.org/habemus-tutti/h-project-client.git",
     "h-worker": "git+ssh://git@bitbucket.org:habemus-tutti/h-worker.git",
     "json-message": "^2.0.0-beta.5",
+    "moment": "^2.15.1",
     "mongoose": "^4.6.1",
     "mongoose-make-acls": "git+ssh://git@bitbucket.org/habemus-tutti/mongoose-make-acls.git",
     "mongoose-make-status": "git+ssh://git@bitbucket.org/habemus-tutti/mongoose-make-status.git",
+    "ms": "^0.7.1",
     "url-pattern": "^1.0.1",
     "uuid": "^2.0.3"
   },
