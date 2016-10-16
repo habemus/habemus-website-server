@@ -176,10 +176,12 @@ module.exports = function (app, options) {
     var activeDomainRecordsPromise;
 
     if (!requestedVersionCode) {
+
       activeDomainRecordsPromise = app.controllers.domainRecord.listProjectRecords(projectId, [
         CONSTANTS.RECORD_STATUSES.ACTIVE
       ]);
     } else {
+      
       activeDomainRecordsPromise = [];
     }
 

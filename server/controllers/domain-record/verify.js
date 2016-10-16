@@ -12,6 +12,20 @@ module.exports = function (domainRecordCtrl, app, options) {
   const DomainRecord = app.services.mongoose.models.DomainRecord;
 
   /**
+   * Restarts the verification process (modifying the `verification.expiresAt` and the
+   * status to `pending-verification`)
+   * 
+   * @param  {DomainRecord} record
+   * @param  {String} reason
+   * @return {Bluebird -> DomainRecord}
+   */
+  domainRecordCtrl.restartVerification = function (record) {
+    record.startVerification('VerificationRestarted');
+
+    return record.save();
+  };
+
+  /**
    * Executes the record verification process.
    * 
    * @param  {DomainRecord} record
@@ -21,6 +35,11 @@ module.exports = function (domainRecordCtrl, app, options) {
 
     if (!(record instanceof DomainRecord)) {
       return Bluebird.reject(new errors.InvalidOption('record', 'required'));
+    }
+
+    if (record.getStatus() === CONSTANTS.RECORD_STATUSES.ACTIVE) {
+      // record is already active, thus does not need to be verified again
+      return record;
     }
 
     /**
@@ -34,12 +53,6 @@ module.exports = function (domainRecordCtrl, app, options) {
      * @type {Array}
      */
     var targetIPAddresses = record.get('ipAddresses');
-
-    /**
-     * Whether to enable the www alias.
-     * @type {Boolean}
-     */
-    var enableWwwAlias = record.get('enableWwwAlias');
 
     /**
      * Code that should be on the domain's TXT dns records
@@ -65,16 +78,49 @@ module.exports = function (domainRecordCtrl, app, options) {
         txtDiff: results[2],
       });
 
+      return record.save();
+    })
+    .then((record) => {
+      // wait for the record to be saved before resolving
+      // the website, so that the record may be considered active
       var status = record.getStatus();
 
-      // if (status === CONSTANTS.RECORD_STATUSES.ACTIVE) {
-      //   app.controllers.website.getById(record.projectId)
-      //     .then((website) => {
-      //       app.controllers.event.publishWebsiteUpdated(website);
-      //     });
-      // }
+      if (status === CONSTANTS.RECORD_STATUSES.ACTIVE) {
 
-      return record.save();
+        // TODO: resolving during tests is throwing errors,
+        // as we are not mocking it correctly.
+        // study how to silence errors in tests
+        app.controllers.website.resolveProject(record.projectId)
+          .then((website) => {
+
+            return app.services.hWebsiteEventsPublisher.publish(
+              CONSTANTS.WEBSITE_EVENTS.DEPLOYED,
+              {
+                /**
+                 * Pass the resolved website.
+                 */
+                website: website,
+              }
+            );
+
+          });
+
+        // send an email
+        // TODO: implement `getOwner` PRIVATE API on h-project
+        // requires better architectural study
+        // 
+        // app.services.hMailer.schedule({
+        //   from: FROM_EMAIL,
+        //   to: email,
+        //   template: 'website/domain-connected',
+        //   data: {
+        //     domain: record.domain,
+        //   },
+        // });
+      }
+
+      // always return the record
+      return record;
     });
     
   };

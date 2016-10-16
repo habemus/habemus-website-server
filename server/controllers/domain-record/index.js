@@ -42,11 +42,12 @@ module.exports = function (app, options) {
 
     domainRecord.set('ipAddresses', IP_ADDRESSES);
 
-    domainRecord.setStatus('pending-verification', 'UserCreated');
+    // start the verification
+    domainRecord.startVerification('UserCreated');
 
     return domainRecord.save();
   };
-
+  
   /**
    * Retrieves a domain record by its _id
    * 

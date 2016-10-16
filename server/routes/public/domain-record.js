@@ -66,7 +66,7 @@ module.exports = function (app, options) {
     }
   );
 
-  app.post('/project/:projectId/domain-record/:recordId/verify',
+  app.post('/project/:projectId/domain-record/:recordId/restart-verification',
     app.middleware.authenticate(authenticateOptions),
     app.middleware.verifyProjectPermissions({
       permissions: ['read', 'update'],
@@ -75,7 +75,7 @@ module.exports = function (app, options) {
     app.middleware.loadDomainRecord(),
     function (req, res, next) {
 
-      return app.controllers.domainRecord.verify(req.domainRecord)
+      return app.controllers.domainRecord.restartVerification(req.domainRecord)
         .then((record) => {
 
           var msg = app.services.messageAPI.item(record, interfaces.RECORD_DATA);

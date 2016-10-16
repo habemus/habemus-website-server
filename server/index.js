@@ -21,6 +21,26 @@ function hWebsite(options) {
     throw new Error('websiteServerIpAddresses is required and MUST NOT be empty');
   }
 
+  if (!options.cronDomainVerifier) {
+    console.warn('cronDomainVerifier not defined, falling back to using default one');
+  }
+
+  if (!options.cronDomainVerificationScheduler) {
+    console.warn('cronDomainVerificationScheduler not defined, falling back to using default one');
+  }
+
+  if (!options.domainVerificationSampleSize) {
+    console.warn('domainVerificationSampleSize not defined, falling back to using default one (10)');
+  }
+
+  if (!options.domainActivationThreshold) {
+    console.warn('domainActivationThreshold not defined, falling back to using default one (0.6)');
+  }
+
+  if (!options.domainVerificationExpiresIn) {
+    console.warn('domainVerificationExpiresIn not defined, falling back to using default one (48h)');
+  }
+
   /**
    * Option that enables the private API routes.
    * @type {Boolean}
@@ -89,9 +109,9 @@ function hWebsite(options) {
     // require('./error-handlers/mongoose-validation-error')(app, options);
   
     // load cron jobs and start them
-    // app.cron = {};
-    // app.cron.domainVerification = require('./cron/domain-verification')(app, options);
-    // app.cron.domainVerification.start();
+    app.cron = {};
+    app.cron.domainVerification = require('./cron/domain-verification')(app, options);
+    app.cron.domainVerification.start();
     
     // setup workers
     return require('./workers')(app, options);

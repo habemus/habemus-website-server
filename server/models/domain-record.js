@@ -4,6 +4,8 @@ const mongoose   = require('mongoose');
 const makeStatus = require('mongoose-make-status');
 const makeAcls   = require('mongoose-make-acls');
 const clone      = require('clone');
+const ms         = require('ms');
+const moment     = require('moment');
 
 // constants
 const WWW_REG_EXP = /^www\./;
@@ -82,6 +84,24 @@ var domainRecordSchema = new mongoose.Schema({
     },
 
     /**
+     * Date time at which the verification MUST expire
+     * and the record (if not yet active) be marked
+     * as failed-permanently
+     * 
+     * @type {Object}
+     */
+    expiresAt: {
+      type: Date,
+      default: Date.now,
+    },
+
+    /**
+     * Array of verification results
+     * @type {Array}
+     */
+    results: [mongoose.Schema.Types.Mixed],
+
+    /**
      * Stores the computed partial results
      * for the verification
      *
@@ -107,6 +127,18 @@ var domainRecordSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
+
+  // createdAt: mongoose-timestamps
+  // updatedAt: mongoose-timestamps
+
+}, {
+
+  /**
+   * Enable mongoose timestamps in order to have
+   * `createdAt` and `updatedAt`
+   * @type {Boolean}
+   */
+  timestamps: true
 });
 
 /**
@@ -167,21 +199,14 @@ module.exports = function (conn, app, options) {
   const DOMAIN_ACTIVATION_THRESHOLD = options.domainActivationThreshold || 0.6;
 
   /**
-   * The threshold value between 0 and 1
-   * lower to which the domain record should be marked
-   * as 'verification-failed'
+   * Quantity of milliseconds to wait for the 
+   * verification process to succeed before human intervention.
    * 
    * @type {Number}
    */
-  const DOMAIN_FAILURE_THRESHOLD = options.domainFailureThreshold || 0.2;
-
-  /**
-   * Max number of failures before considering the domain record
-   * to have failed-permanently
-   * 
-   * @type {[type]}
-   */
-  const MAX_DOMAIN_FAILURE_COUNT = options.maxDomainFailureCount || 100;
+  var VERIFICATION_EXPIRY = options.domainVerificationExpiresIn || '48h';
+  VERIFICATION_EXPIRY = typeof VERIFICATION_EXPIRY === 'number' ?
+    VERIFICATION_EXPIRY : ms(VERIFICATION_EXPIRY);
 
   // STATICS
 
@@ -239,10 +264,31 @@ module.exports = function (conn, app, options) {
   // METHODS
   
   /**
+   * Sets the record to be ready for starting a verification process
+   * @param  {String} reason
+   */
+  domainRecordSchema.methods.startVerification = function (reason) {
+    // set verification expiry
+    this.set(
+      'verification.expiresAt',
+      moment().add(VERIFICATION_EXPIRY, 'ms').toDate()
+    );
+
+    // set status to 'pending-verification'
+    this.setStatus(
+      CONSTANTS.RECORD_STATUSES.PENDING,
+      reason
+    );
+
+    // reset the verification results
+    this.resetVerificationResults();
+  };
+  
+  /**
    * Resets the verification results to an empty array
    */
   domainRecordSchema.methods.resetVerificationResults = function () {
-    this.set('verification.detail.results', []);
+    this.set('verification.results', []);
   };
 
   /**
@@ -251,7 +297,7 @@ module.exports = function (conn, app, options) {
    * 
    * @param {Object} result
    */
-  domainRecordSchema.methods.addVerificationResult = function (result, options) {
+  domainRecordSchema.methods.addVerificationResult = function (result) {
 
     if (!result.txtDiff) {
       throw new TypeError('result.txtDiff is required');
@@ -265,17 +311,17 @@ module.exports = function (conn, app, options) {
       throw new TypeError('result.ipv4Diff is required');
     }
 
-    options = options || {
-      /**
-       * Whether to save the failure to the overall failure count
-       * @type {Boolean}
-       */
-      countFailure: false
-    };
-
     // ensure the verification results is an array
-    var results = this.verification.detail.results || [];
-    results = clone(results);
+    var results = this.get('verification.results');
+    if (results) {
+      // make a copy of the results array
+      results = results.map((result) => {
+        return result;
+      })
+    } else {
+      // no results, set it to an array
+      results = [];
+    }
 
     if (results.length === VERIFICATION_SAMPLE_SIZE) {
       // remove the last item
@@ -285,7 +331,7 @@ module.exports = function (conn, app, options) {
     // add the last result to the head of the array
     results.unshift(result);
 
-    this.set('verification.detail.results', results);
+    this.set('verification.results', results);
 
     /**
      * Check if the record's verification status is above the 
@@ -315,7 +361,7 @@ module.exports = function (conn, app, options) {
       }
     });
     
-    if (results.length === VERIFICATION_SAMPLE_SIZE) {
+    if (results.length >= VERIFICATION_SAMPLE_SIZE) {
 
       if (_active) {
         // SUCCESS
@@ -327,23 +373,14 @@ module.exports = function (conn, app, options) {
       } else {
         // FAILED
 
-        // check if the verification has failed more than the max allowed
-        // amount of times
-        var failureCount = this.get('verification.detail.failureCount') || 0;
-
-        // increment failureCount if the `countFailure` option is set
-        // by default, the failure count is not counted.
-        failureCount = (options.countFailure) ? failureCount + 1 : failureCount;
-
-        // save the failureCount
-        this.set('verification.detail.failureCount', failureCount);
-
-        if (failureCount >= MAX_DOMAIN_FAILURE_COUNT) {
+        // check if the verification has expired
+        var expired = moment().isAfter(this.get('verification.expiresAt'));
+        if (expired) {
           // failed permanently.
           // demand user's action
           this.setStatus(
             CONSTANTS.RECORD_STATUSES.FAILED_PERMANENTLY,
-            'MaxFailureCountExceeded'
+            'VerificationPeriodExpired'
           );
         } else {
           // failed temporarily,
@@ -353,6 +390,7 @@ module.exports = function (conn, app, options) {
             'VerificationFailed'
           );
         }
+
       }
 
     } else {
@@ -366,7 +404,7 @@ module.exports = function (conn, app, options) {
 
   // VIRTUALS
   domainRecordSchema.virtual('verificationScores').get(function () {
-    var verificationResults = this.get('verification.detail.results');
+    var verificationResults = this.get('verification.results');
 
     return domainRecordSchema.statics.computeVerificationScores(verificationResults);
   });
