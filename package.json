@@ -22,7 +22,6 @@
     "express-jwt": "^5.0.0",
     "h-account-client": "git+ssh://git@bitbucket.org/habemus-tutti/h-account-client.git",
     "h-dns": "git+ssh://git@bitbucket.org:habemus-tutti/h-dns.git",
-    "h-mailer": "git+ssh://git@bitbucket.org/habemus-tutti/h-mailer.git",
     "h-mq-events": "git+ssh://git@bitbucket.org/habemus-tutti/h-mq-events.git",
     "h-project-client": "git+ssh://git@bitbucket.org/habemus-tutti/h-project-client.git",
     "h-worker": "git+ssh://git@bitbucket.org:habemus-tutti/h-worker.git",

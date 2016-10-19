@@ -3,10 +3,6 @@ MAINTAINER Simon Fan <sf@habem.us>
 
 COPY . /application
 
-WORKDIR /application
-# bcrypt needs to be recompiled
-RUN ["npm", "rebuild"]
-
 # port must match exposed port
 ENV PORT 5000
 

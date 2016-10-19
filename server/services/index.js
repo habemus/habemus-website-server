@@ -25,13 +25,11 @@ module.exports = function (app, options) {
     // setup second batch of services
     return Bluebird.all([
       require('./h-website-events-publisher')(app, options),
-      require('./h-mailer')(app, options),
     ]);
   })
   .then((services) => {
 
     app.services.hWebsiteEventsPublisher = services[0];
-    app.services.hMailer = services[1];
 
     return;
   });
