@@ -12,6 +12,7 @@ var options = envOptions({
   apiVersion: 'pkg:version',
 
   corsWhitelist: 'list:CORS_WHITELIST',
+  hostDomain: 'env:HOST_DOMAIN',
   websiteServerIpAddresses: 'list:WEBSITE_SERVER_IP_ADDRESSES',
   cronDomainVerifier: 'env?:CRON_DOMAIN_VERIFIER',
   cronDomainVerificationScheduler: 'env?:CRON_DOMAIN_VERIFICATION_SCHEDULER',

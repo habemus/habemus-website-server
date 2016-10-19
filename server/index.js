@@ -10,6 +10,7 @@ const setupServices = require('./services');
  */
 function hWebsite(options) {
   if (!options.apiVersion)    { throw new Error('apiVersion is required'); }
+  if (!options.hostDomain)    { throw new Error('hostDomain is required'); }
   if (!options.hAccountURI)   { throw new Error('hAccountURI is required'); }
   if (!options.hAccountToken) { throw new Error('hAccountToken is required'); }
   if (!options.hProjectURI)   { throw new Error('hProjectURI is required'); }
