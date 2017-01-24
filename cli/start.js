@@ -36,18 +36,31 @@ var options = envOptions({
 // instantiate the app
 var app = hWebsite(options);
 
+// create http server and pass express app as callback
+var server = http.createServer(app);
+
 app.ready.then(() => {
   console.log('h-website setup ready');
+  // start listening
+  server.listen(options.port, function () {
+    console.log('hWebsite listening at port %s', options.port);
+  });
+
+  /**
+   * Exit process in case rabbit mq connections are closed.
+   * Let environment deal with reconnection.
+   */
+  app.services.hWebsiteEventsPublisher.on('channel-close', (e) => {
+    console.warn('h-website hWebsiteEventsPublisher channel-close', e);
+    process.exit(1);
+  });
+  app.workers.hWebsiteDeployer.on('channel-close', (e) => {
+    console.warn('h-website hWebsiteDeployer channel-close', e);
+    process.exit(1);
+  });
+
 })
 .catch((err) => {
   console.error('h-website setup error', err);
   process.exit(1);
-});
-
-// create http server and pass express app as callback
-var server = http.createServer(app);
-
-// start listening
-server.listen(options.port, function () {
-  console.log('hWebsite listening at port %s', options.port);
 });

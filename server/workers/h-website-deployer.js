@@ -43,7 +43,6 @@ module.exports = function (app, options) {
       });
   };
 
-
   var hDeployer = new HWebsiteDeployer({ name: 'h-website-deployer' });
 
   return hDeployer.connect(app.services.rabbitMQ.connection)
