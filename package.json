@@ -1,6 +1,6 @@
 {
   "name": "h-website",
-  "version": "1.0.0-beta",
+  "version": "1.0.0",
   "description": "",
   "main": "server/index.js",
   "scripts": {
