@@ -66,7 +66,7 @@ var domainRecordSchema = new mongoose.Schema({
   verification: {
     subdomain: {
       type: String,
-      default: 'habemus-verify',
+      default: 'habemusverify',
     },
     code: {
       type: String,

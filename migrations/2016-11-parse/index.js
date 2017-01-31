@@ -67,6 +67,26 @@ exports.migrate = function (options) {
             'MigratedFromParse'
           );
 
+          /**
+          {
+            "projectId": ,
+            "domain": 
+            "verification": {
+              "subdomain": "habemusverify",
+              "code": sourceDomainRecord.verificationCode_,
+              "method": "DNSSubdomain",
+              "detail": {}
+            },
+            "ipAddresses": [
+
+            ],
+            "status": {
+              "value": "active",
+              "reason": "MigratedFromParse"
+            }
+          }
+           */
+
           return domainRecord.save();
 
         })

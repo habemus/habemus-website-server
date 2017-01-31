@@ -1,18 +1,26 @@
 [
 	{
-		"ACL": {
+		"_id": "1uijFKNuQ7",
+		"hostname": "luciana.top",
+		"_p_project": "Project$YvZtknBucp",
+		"_updated_at": {
+			"$date": "2017-01-30T18:26:06.958Z"
+		},
+		"_acl": {
 			"4ohu2lZFUz": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-02-16T17:33:56.899Z",
-		"hostname": "luciana.top",
-		"objectId": "1uijFKNuQ7",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "YvZtknBucp"
+		"_wperm": [
+			"4ohu2lZFUz"
+		],
+		"verificationCode_": "25b322f62e724dbf889d2890f8008411",
+		"_rperm": [
+			"4ohu2lZFUz"
+		],
+		"_created_at": {
+			"$date": "2016-02-16T17:33:56.899Z"
 		},
 		"targetConfigurations_": {
 			"dnsRecords": [
@@ -60,30 +68,41 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:38:09.880Z",
-		"verificationCode_": "25b322f62e724dbf889d2890f8008411",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 0
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		}
 	},
 	{
-		"ACL": {
+		"_id": "2WEq7ppVn4",
+		"_rperm": [
+			"g89GVz3Pos"
+		],
+		"_acl": {
 			"g89GVz3Pos": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-09-13T13:11:23.873Z",
-		"hostname": "estudiovo.com.br",
-		"objectId": "2WEq7ppVn4",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "clj17j71ri"
+		"_p_project": "Project$clj17j71ri",
+		"_created_at": {
+			"$date": "2016-09-13T13:11:23.873Z"
 		},
-		"status_": "active",
+		"_updated_at": {
+			"$date": "2016-09-21T15:11:04.843Z"
+		},
+		"verificationCode_": "604e501aec46433d8035adbd0664cc26",
+		"_wperm": [
+			"g89GVz3Pos"
+		],
+		"hostname": "estudiovo.com.br",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -134,28 +153,41 @@
 				}
 			]
 		},
-		"updatedAt": "2016-09-21T15:11:04.843Z",
-		"verificationCode_": "604e501aec46433d8035adbd0664cc26",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 1,
-			"verification": 1
-		}
-	},
-	{
-		"ACL": {
-			"t0sWrb3OF1": {
-				"read": true,
-				"write": true
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "1"
 			}
 		},
-		"createdAt": "2016-07-31T02:14:46.871Z",
+		"status_": "active"
+	},
+	{
+		"_id": "3IjjeSsrNI",
+		"_created_at": {
+			"$date": "2016-07-31T02:14:46.871Z"
+		},
+		"_updated_at": {
+			"$date": "2017-01-30T18:26:07.004Z"
+		},
+		"verificationCode_": "0c8251f398c54ef1bb72b9076275efe8",
+		"_wperm": [
+			"t0sWrb3OF1"
+		],
+		"_p_project": "Project$fyOR2HFsja",
+		"_rperm": [
+			"t0sWrb3OF1"
+		],
 		"hostname": "acalmo.com.br",
-		"objectId": "3IjjeSsrNI",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "fyOR2HFsja"
+		"_acl": {
+			"t0sWrb3OF1": {
+				"r": true,
+				"w": true
+			}
 		},
 		"targetConfigurations_": {
 			"dnsRecords": [
@@ -201,29 +233,41 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:38:04.908Z",
-		"verificationCode_": "0c8251f398c54ef1bb72b9076275efe8",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 0
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		}
 	},
 	{
-		"ACL": {
+		"_id": "8FUkKWAO5N",
+		"hostname": "luciana.com.br",
+		"_acl": {
 			"4ohu2lZFUz": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-04-27T20:26:30.892Z",
-		"hostname": "luciana.com.br",
-		"objectId": "8FUkKWAO5N",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "m4Jk1tydwX"
+		"verificationCode_": "48e939848f294b3ebead61fe6d21761a",
+		"_rperm": [
+			"4ohu2lZFUz"
+		],
+		"_created_at": {
+			"$date": "2016-04-27T20:26:30.892Z"
 		},
+		"_updated_at": {
+			"$date": "2017-01-30T18:22:07.006Z"
+		},
+		"_wperm": [
+			"4ohu2lZFUz"
+		],
+		"_p_project": "Project$m4Jk1tydwX",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -268,30 +312,41 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:42:03.733Z",
-		"verificationCode_": "48e939848f294b3ebead61fe6d21761a",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 0
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		}
 	},
 	{
-		"ACL": {
+		"_id": "8tNQTO38wE",
+		"_updated_at": {
+			"$date": "2016-09-07T20:57:37.885Z"
+		},
+		"_wperm": [
+			"wwCdLAJ55O"
+		],
+		"_acl": {
 			"wwCdLAJ55O": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-09-07T20:34:49.601Z",
-		"hostname": "mulheresnegrasavbr.com",
-		"objectId": "8tNQTO38wE",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "8QutN2EtcX"
+		"_p_project": "Project$8QutN2EtcX",
+		"_created_at": {
+			"$date": "2016-09-07T20:34:49.601Z"
 		},
-		"status_": "active",
+		"_rperm": [
+			"wwCdLAJ55O"
+		],
+		"hostname": "mulheresnegrasavbr.com",
+		"verificationCode_": "5085374e029a4d70893fed98267f3f54",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -342,29 +397,42 @@
 				}
 			]
 		},
-		"updatedAt": "2016-09-07T20:57:37.885Z",
-		"verificationCode_": "5085374e029a4d70893fed98267f3f54",
 		"verificationStatus_": {
-			"A": 1,
-			"CNAME": 1,
-			"verification": 1
-		}
-	},
-	{
-		"ACL": {
-			"ekbyp8OIj3": {
-				"read": true,
-				"write": true
+			"A": {
+				"$numberLong": "1"
+			},
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "1"
 			}
 		},
-		"createdAt": "2016-09-29T15:15:03.232Z",
-		"hostname": "studiomlaa.com",
-		"objectId": "A60V9JHibl",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "OFkVg2McNV"
+		"status_": "active"
+	},
+	{
+		"_id": "A60V9JHibl",
+		"_acl": {
+			"ekbyp8OIj3": {
+				"r": true,
+				"w": true
+			}
 		},
+		"_rperm": [
+			"ekbyp8OIj3"
+		],
+		"verificationCode_": "825f963d2ea64470be4c21e425b7153d",
+		"_updated_at": {
+			"$date": "2017-01-30T18:22:06.991Z"
+		},
+		"_p_project": "Project$OFkVg2McNV",
+		"_created_at": {
+			"$date": "2016-09-29T15:15:03.232Z"
+		},
+		"_wperm": [
+			"ekbyp8OIj3"
+		],
+		"hostname": "studiomlaa.com",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -413,30 +481,41 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:42:03.684Z",
-		"verificationCode_": "825f963d2ea64470be4c21e425b7153d",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 0
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		}
 	},
 	{
-		"ACL": {
+		"_id": "AMznaEMDbj",
+		"_wperm": [
+			"r42jNK7pNf"
+		],
+		"verificationCode_": "8b4b58bd4dbf4bc48992af6ad465b157",
+		"_p_project": "Project$61CUWEN8K0",
+		"_acl": {
 			"r42jNK7pNf": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-05-19T13:02:41.670Z",
+		"_rperm": [
+			"r42jNK7pNf"
+		],
 		"hostname": "maquina.io",
-		"objectId": "AMznaEMDbj",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "61CUWEN8K0"
+		"_created_at": {
+			"$date": "2016-05-19T13:02:41.670Z"
 		},
-		"status_": "active",
+		"_updated_at": {
+			"$date": "2016-05-19T13:09:06.363Z"
+		},
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -487,29 +566,42 @@
 				}
 			]
 		},
-		"updatedAt": "2016-05-19T13:09:06.363Z",
-		"verificationCode_": "8b4b58bd4dbf4bc48992af6ad465b157",
 		"verificationStatus_": {
-			"A": 1,
-			"CNAME": 1,
-			"verification": 1
-		}
-	},
-	{
-		"ACL": {
-			"kMMXT0QleV": {
-				"read": true,
-				"write": true
+			"A": {
+				"$numberLong": "1"
+			},
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "1"
 			}
 		},
-		"createdAt": "2016-03-19T15:00:11.160Z",
-		"hostname": "luciana.top",
-		"objectId": "CU36intpcM",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "WgE6PdXQry"
+		"status_": "active"
+	},
+	{
+		"_id": "CU36intpcM",
+		"_p_project": "Project$WgE6PdXQry",
+		"_updated_at": {
+			"$date": "2017-01-30T18:22:06.940Z"
 		},
+		"_created_at": {
+			"$date": "2016-03-19T15:00:11.160Z"
+		},
+		"_rperm": [
+			"kMMXT0QleV"
+		],
+		"verificationCode_": "f905ab4a09014c81ac07b16d6cd15480",
+		"_acl": {
+			"kMMXT0QleV": {
+				"r": true,
+				"w": true
+			}
+		},
+		"_wperm": [
+			"kMMXT0QleV"
+		],
+		"hostname": "luciana.top",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -556,28 +648,40 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:40:03.863Z",
-		"verificationCode_": "f905ab4a09014c81ac07b16d6cd15480",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 0
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		}
 	},
 	{
-		"ACL": {
+		"_id": "EHfCaDJm3U",
+		"_wperm": [
+			"4ohu2lZFUz"
+		],
+		"_acl": {
 			"4ohu2lZFUz": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-07-30T18:51:22.143Z",
+		"_rperm": [
+			"4ohu2lZFUz"
+		],
+		"_p_project": "Project$iv5d2a9owZ",
+		"verificationCode_": "4dec6da802f246ef8a973a34f415ad53",
+		"_updated_at": {
+			"$date": "2017-01-30T18:22:06.945Z"
+		},
 		"hostname": "tutiacoaching.com.br",
-		"objectId": "EHfCaDJm3U",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "iv5d2a9owZ"
+		"_created_at": {
+			"$date": "2016-07-30T18:51:22.143Z"
 		},
 		"targetConfigurations_": {
 			"dnsRecords": [
@@ -629,28 +733,40 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:38:04.766Z",
-		"verificationCode_": "4dec6da802f246ef8a973a34f415ad53",
 		"verificationStatus_": {
-			"A": 1,
-			"CNAME": 1,
-			"verification": 0
+			"A": {
+				"$numberLong": "1"
+			},
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		}
 	},
 	{
-		"ACL": {
+		"_id": "FkWB7hiAgh",
+		"_acl": {
 			"HHZ86QMOV0": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-03-04T22:08:56.315Z",
+		"_rperm": [
+			"HHZ86QMOV0"
+		],
+		"_p_project": "Project$19DenTG7No",
+		"_updated_at": {
+			"$date": "2017-01-30T18:22:06.966Z"
+		},
 		"hostname": "test.com",
-		"objectId": "FkWB7hiAgh",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "19DenTG7No"
+		"_wperm": [
+			"HHZ86QMOV0"
+		],
+		"verificationCode_": "5e459cabee3241918de12b0311febb1e",
+		"_created_at": {
+			"$date": "2016-03-04T22:08:56.315Z"
 		},
 		"targetConfigurations_": {
 			"dnsRecords": [
@@ -700,30 +816,41 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:38:08.884Z",
-		"verificationCode_": "5e459cabee3241918de12b0311febb1e",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 0
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		}
 	},
 	{
-		"ACL": {
+		"_id": "HwWiHkwtRj",
+		"_p_project": "Project$MaTxYsnC6k",
+		"_acl": {
 			"OiTSqVE8gZ": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-01-22T15:23:53.806Z",
+		"_rperm": [
+			"OiTSqVE8gZ"
+		],
+		"_wperm": [
+			"OiTSqVE8gZ"
+		],
 		"hostname": "educkf.com.br",
-		"objectId": "HwWiHkwtRj",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "MaTxYsnC6k"
+		"_updated_at": {
+			"$date": "2016-01-26T15:36:13.959Z"
 		},
-		"status_": "active",
+		"verificationCode_": "35590fb2a8a643aab34ef483aa9979e8",
+		"_created_at": {
+			"$date": "2016-01-22T15:23:53.806Z"
+		},
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -774,30 +901,40 @@
 				}
 			]
 		},
-		"updatedAt": "2016-01-26T15:36:13.959Z",
-		"verificationCode_": "35590fb2a8a643aab34ef483aa9979e8",
 		"verificationStatus_": {
 			"A": 0.2,
-			"CNAME": 1,
-			"verification": 1
-		}
-	},
-	{
-		"ACL": {
-			"g89GVz3Pos": {
-				"read": true,
-				"write": true
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "1"
 			}
 		},
-		"createdAt": "2016-04-27T20:08:14.690Z",
-		"hostname": "ovoestudio.com.br",
-		"objectId": "KDdyO4DYsw",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "clj17j71ri"
+		"status_": "active"
+	},
+	{
+		"_id": "KDdyO4DYsw",
+		"_wperm": [
+			"g89GVz3Pos"
+		],
+		"_p_project": "Project$clj17j71ri",
+		"_created_at": {
+			"$date": "2016-04-27T20:08:14.690Z"
 		},
-		"status_": "active",
+		"verificationCode_": "9f502af0c0464468bb35872e8d25e2ec",
+		"_acl": {
+			"g89GVz3Pos": {
+				"r": true,
+				"w": true
+			}
+		},
+		"_rperm": [
+			"g89GVz3Pos"
+		],
+		"hostname": "ovoestudio.com.br",
+		"_updated_at": {
+			"$date": "2016-10-13T20:13:50.648Z"
+		},
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -848,29 +985,42 @@
 				}
 			]
 		},
-		"updatedAt": "2016-10-13T20:13:50.648Z",
-		"verificationCode_": "9f502af0c0464468bb35872e8d25e2ec",
 		"verificationStatus_": {
-			"A": 1,
-			"CNAME": 1,
-			"verification": 1
-		}
-	},
-	{
-		"ACL": {
-			"4ohu2lZFUz": {
-				"read": true,
-				"write": true
+			"A": {
+				"$numberLong": "1"
+			},
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "1"
 			}
 		},
-		"createdAt": "2016-01-26T14:02:23.097Z",
+		"status_": "active"
+	},
+	{
+		"_id": "NOPgNljVWj",
 		"hostname": "luciana.top",
-		"objectId": "NOPgNljVWj",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "dliMamzPvX"
+		"_created_at": {
+			"$date": "2016-01-26T14:02:23.097Z"
 		},
+		"_updated_at": {
+			"$date": "2017-01-30T18:24:06.809Z"
+		},
+		"_acl": {
+			"4ohu2lZFUz": {
+				"r": true,
+				"w": true
+			}
+		},
+		"_rperm": [
+			"4ohu2lZFUz"
+		],
+		"_wperm": [
+			"4ohu2lZFUz"
+		],
+		"verificationCode_": "fe74287bde1546b494569fde705412e1",
+		"_p_project": "Project$dliMamzPvX",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -917,29 +1067,41 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:40:03.807Z",
-		"verificationCode_": "fe74287bde1546b494569fde705412e1",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 0
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		}
 	},
 	{
-		"ACL": {
+		"_id": "PZ9IlVvX4m",
+		"_created_at": {
+			"$date": "2016-08-05T01:43:29.440Z"
+		},
+		"hostname": "marceneirosp.com.br",
+		"_updated_at": {
+			"$date": "2017-01-30T18:18:06.922Z"
+		},
+		"_acl": {
 			"PhaqnfI3Fz": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-08-05T01:43:29.440Z",
-		"hostname": "marceneirosp.com.br",
-		"objectId": "PZ9IlVvX4m",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "gT00W7Lvoa"
-		},
+		"_wperm": [
+			"PhaqnfI3Fz"
+		],
+		"_rperm": [
+			"PhaqnfI3Fz"
+		],
+		"_p_project": "Project$gT00W7Lvoa",
+		"verificationCode_": "0a5f59e2b9b346c0a5cf967dc234f502",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -984,30 +1146,122 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:38:04.917Z",
-		"verificationCode_": "0a5f59e2b9b346c0a5cf967dc234f502",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 0
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		}
 	},
 	{
-		"ACL": {
-			"pbkqZ1Sfii": {
-				"read": true,
-				"write": true
+		"_id": "Qrbz0ksYDR",
+		"hostname": "lucia.com",
+		"_p_project": "Project$OV9lnv1vVf",
+		"verificationCode_": "c9d07d5dcba24f8a86152f441bf3227d",
+		"_rperm": [
+			"4ohu2lZFUz"
+		],
+		"_updated_at": {
+			"$date": "2017-01-30T18:22:11.025Z"
+		},
+		"_wperm": [
+			"4ohu2lZFUz"
+		],
+		"_acl": {
+			"4ohu2lZFUz": {
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-09-09T14:48:40.220Z",
-		"hostname": "1quartoaquicabe.com.br",
-		"objectId": "SeKqxSkDQs",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "1ulZXA9Efr"
+		"_created_at": {
+			"$date": "2016-11-19T13:33:54.548Z"
 		},
-		"status_": "active",
+		"targetConfigurations_": {
+			"dnsRecords": [
+				{
+					"_kind": "verification",
+					"actualValues": false,
+					"host": "habemusverify",
+					"required": true,
+					"status": "pending",
+					"targetValues": [
+						{
+							"required": true,
+							"value": "c9d07d5dcba24f8a86152f441bf3227d"
+						}
+					],
+					"type": "TXT"
+				},
+				{
+					"_kind": "CNAME",
+					"actualValues": false,
+					"host": "www",
+					"status": "pending",
+					"targetValues": [
+						{
+							"required": false,
+							"value": "lucia.com"
+						}
+					],
+					"type": "CNAME"
+				},
+				{
+					"_kind": "A",
+					"actualValues": [
+						"64.99.80.121"
+					],
+					"host": "",
+					"status": "pending",
+					"targetValues": [
+						{
+							"required": true,
+							"value": "104.196.109.249"
+						}
+					],
+					"type": "A"
+				}
+			]
+		},
+		"verificationStatus_": {
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
+		}
+	},
+	{
+		"_id": "SeKqxSkDQs",
+		"verificationCode_": "ca5d3a408b4f444f87c50006a710596e",
+		"_rperm": [
+			"pbkqZ1Sfii"
+		],
+		"hostname": "1quartoaquicabe.com.br",
+		"_p_project": "Project$1ulZXA9Efr",
+		"_created_at": {
+			"$date": "2016-09-09T14:48:40.220Z"
+		},
+		"_updated_at": {
+			"$date": "2016-09-23T14:31:12.615Z"
+		},
+		"_acl": {
+			"pbkqZ1Sfii": {
+				"r": true,
+				"w": true
+			}
+		},
+		"_wperm": [
+			"pbkqZ1Sfii"
+		],
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -1058,28 +1312,41 @@
 				}
 			]
 		},
-		"updatedAt": "2016-09-23T14:31:12.615Z",
-		"verificationCode_": "ca5d3a408b4f444f87c50006a710596e",
 		"verificationStatus_": {
-			"A": 1,
-			"CNAME": 1,
-			"verification": 1
-		}
-	},
-	{
-		"ACL": {
-			"0nFBUB9La3": {
-				"read": true,
-				"write": true
+			"A": {
+				"$numberLong": "1"
+			},
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "1"
 			}
 		},
-		"createdAt": "2016-07-30T18:44:20.510Z",
+		"status_": "active"
+	},
+	{
+		"_id": "TAW6KL4bi2",
+		"_updated_at": {
+			"$date": "2017-01-30T18:24:06.819Z"
+		},
+		"_rperm": [
+			"0nFBUB9La3"
+		],
+		"verificationCode_": "85be1eb659af42b69976da6b0fedd223",
+		"_wperm": [
+			"0nFBUB9La3"
+		],
 		"hostname": "wempo.com",
-		"objectId": "TAW6KL4bi2",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "36dlEdSHGq"
+		"_p_project": "Project$36dlEdSHGq",
+		"_created_at": {
+			"$date": "2016-07-30T18:44:20.510Z"
+		},
+		"_acl": {
+			"0nFBUB9La3": {
+				"r": true,
+				"w": true
+			}
 		},
 		"targetConfigurations_": {
 			"dnsRecords": [
@@ -1127,30 +1394,41 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:38:04.768Z",
-		"verificationCode_": "85be1eb659af42b69976da6b0fedd223",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 0
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		}
 	},
 	{
-		"ACL": {
+		"_id": "YFLLAO6QQc",
+		"_wperm": [
+			"vgotBhelp9"
+		],
+		"_acl": {
 			"vgotBhelp9": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-08-17T04:39:31.114Z",
-		"hostname": "fernandavazstudio.com",
-		"objectId": "YFLLAO6QQc",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "vGY9ObYR1T"
+		"_rperm": [
+			"vgotBhelp9"
+		],
+		"_created_at": {
+			"$date": "2016-08-17T04:39:31.114Z"
 		},
-		"status_": "active",
+		"hostname": "fernandavazstudio.com",
+		"_p_project": "Project$vGY9ObYR1T",
+		"_updated_at": {
+			"$date": "2016-08-17T15:44:11.513Z"
+		},
+		"verificationCode_": "029295ca08c64c40b7e2b073a930deeb",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -1201,28 +1479,50 @@
 				}
 			]
 		},
-		"updatedAt": "2016-08-17T15:44:11.513Z",
-		"verificationCode_": "029295ca08c64c40b7e2b073a930deeb",
 		"verificationStatus_": {
 			"A": 0.8,
-			"CNAME": 1,
-			"verification": 1
-		}
-	},
-	{
-		"ACL": {
-			"4ohu2lZFUz": {
-				"read": true,
-				"write": true
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "1"
 			}
 		},
-		"createdAt": "2016-02-17T17:46:01.840Z",
+		"status_": "active"
+	},
+	{
+		"_id": "Z0zLXxvSEk",
+		"_wperm": [
+			"4ohu2lZFUz"
+		],
+		"_p_project": "Project$YGYBSqbqkM",
+		"verificationCode_": "bc651341747c4549853418b764198d5b",
+		"_created_at": {
+			"$date": "2016-02-17T17:46:01.840Z"
+		},
+		"_updated_at": {
+			"$date": "2017-01-30T18:22:06.945Z"
+		},
+		"_acl": {
+			"4ohu2lZFUz": {
+				"r": true,
+				"w": true
+			}
+		},
+		"_rperm": [
+			"4ohu2lZFUz"
+		],
 		"hostname": "luciana.top",
-		"objectId": "Z0zLXxvSEk",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "YGYBSqbqkM"
+		"verificationStatus_": {
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		},
 		"targetConfigurations_": {
 			"dnsRecords": [
@@ -1269,31 +1569,31 @@
 					"type": "A"
 				}
 			]
-		},
-		"updatedAt": "2016-11-14T02:42:03.721Z",
-		"verificationCode_": "bc651341747c4549853418b764198d5b",
-		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 0
 		}
 	},
 	{
-		"ACL": {
+		"_id": "c9xChDGF62",
+		"_wperm": [
+			"74YA5WleAx"
+		],
+		"_p_project": "Project$WJng8zz77W",
+		"_updated_at": {
+			"$date": "2016-02-02T06:11:59.864Z"
+		},
+		"hostname": "vps.gr",
+		"verificationCode_": "e650398246304318ac10efe6b05794ff",
+		"_acl": {
 			"74YA5WleAx": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-02-02T06:07:22.749Z",
-		"hostname": "vps.gr",
-		"objectId": "c9xChDGF62",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "WJng8zz77W"
+		"_rperm": [
+			"74YA5WleAx"
+		],
+		"_created_at": {
+			"$date": "2016-02-02T06:07:22.749Z"
 		},
-		"status_": "active",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -1344,30 +1644,40 @@
 				}
 			]
 		},
-		"updatedAt": "2016-02-02T06:11:59.864Z",
-		"verificationCode_": "e650398246304318ac10efe6b05794ff",
 		"verificationStatus_": {
 			"A": 0.2,
-			"CNAME": 1,
-			"verification": 1
-		}
-	},
-	{
-		"ACL": {
-			"hdhInXX4tN": {
-				"read": true,
-				"write": true
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "1"
 			}
 		},
-		"createdAt": "2016-09-08T16:18:57.565Z",
+		"status_": "active"
+	},
+	{
+		"_id": "hqy2N3mbi9",
+		"_rperm": [
+			"hdhInXX4tN"
+		],
+		"_wperm": [
+			"hdhInXX4tN"
+		],
 		"hostname": "tutiacoaching.com.br",
-		"objectId": "hqy2N3mbi9",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "ZvFebZaFDc"
+		"_p_project": "Project$ZvFebZaFDc",
+		"verificationCode_": "da34b7530a0042f8a9aa0ec7c0a8892a",
+		"_created_at": {
+			"$date": "2016-09-08T16:18:57.565Z"
 		},
-		"status_": "active",
+		"_acl": {
+			"hdhInXX4tN": {
+				"r": true,
+				"w": true
+			}
+		},
+		"_updated_at": {
+			"$date": "2016-09-08T18:24:46.206Z"
+		},
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -1418,30 +1728,40 @@
 				}
 			]
 		},
-		"updatedAt": "2016-09-08T18:24:46.206Z",
-		"verificationCode_": "da34b7530a0042f8a9aa0ec7c0a8892a",
 		"verificationStatus_": {
-			"A": 1,
-			"CNAME": 1,
+			"A": {
+				"$numberLong": "1"
+			},
+			"CNAME": {
+				"$numberLong": "1"
+			},
 			"verification": 0.6
-		}
+		},
+		"status_": "active"
 	},
 	{
-		"ACL": {
+		"_id": "iUtoh7sMlc",
+		"_created_at": {
+			"$date": "2016-01-22T05:24:11.596Z"
+		},
+		"_acl": {
 			"r42jNK7pNf": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-01-22T05:24:11.596Z",
+		"_wperm": [
+			"r42jNK7pNf"
+		],
+		"verificationCode_": "5a49aac5f2744d66a3b89bf0f62328ba",
 		"hostname": "skirtsfor.men",
-		"objectId": "iUtoh7sMlc",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "fHKEewx3gi"
+		"_p_project": "Project$fHKEewx3gi",
+		"_updated_at": {
+			"$date": "2016-01-29T19:13:07.975Z"
 		},
-		"status_": "active",
+		"_rperm": [
+			"r42jNK7pNf"
+		],
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -1492,29 +1812,42 @@
 				}
 			]
 		},
-		"updatedAt": "2016-01-29T19:13:07.975Z",
-		"verificationCode_": "5a49aac5f2744d66a3b89bf0f62328ba",
 		"verificationStatus_": {
-			"A": 1,
-			"CNAME": 1,
-			"verification": 1
-		}
-	},
-	{
-		"ACL": {
-			"lFZ36MiSUI": {
-				"read": true,
-				"write": true
+			"A": {
+				"$numberLong": "1"
+			},
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "1"
 			}
 		},
-		"createdAt": "2016-11-07T16:41:52.641Z",
-		"hostname": "luciasalamanca.com",
-		"objectId": "jLHWPwTIWK",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "VvFMLXevOu"
+		"status_": "active"
+	},
+	{
+		"_id": "jLHWPwTIWK",
+		"_updated_at": {
+			"$date": "2017-01-30T18:22:06.944Z"
 		},
+		"_rperm": [
+			"lFZ36MiSUI"
+		],
+		"_p_project": "Project$VvFMLXevOu",
+		"_acl": {
+			"lFZ36MiSUI": {
+				"r": true,
+				"w": true
+			}
+		},
+		"_created_at": {
+			"$date": "2016-11-07T16:41:52.641Z"
+		},
+		"_wperm": [
+			"lFZ36MiSUI"
+		],
+		"hostname": "luciasalamanca.com",
+		"verificationCode_": "1d7b72d273b24e9aa6142807bdc4eb86",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -1563,28 +1896,40 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:42:03.735Z",
-		"verificationCode_": "1d7b72d273b24e9aa6142807bdc4eb86",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 1,
-			"verification": 0
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		}
 	},
 	{
-		"ACL": {
-			"8yc7DQYnR7": {
-				"read": true,
-				"write": true
-			}
+		"_id": "lsnyuXIzMD",
+		"verificationCode_": "0a7a53dcca6a4dabbbcb6caa7f55816d",
+		"_p_project": "Project$0vbsYyHbJ3",
+		"_created_at": {
+			"$date": "2016-02-12T13:51:24.392Z"
 		},
-		"createdAt": "2016-02-12T13:51:24.392Z",
+		"_rperm": [
+			"8yc7DQYnR7"
+		],
+		"_wperm": [
+			"8yc7DQYnR7"
+		],
 		"hostname": "hammurabi.com.br",
-		"objectId": "lsnyuXIzMD",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "0vbsYyHbJ3"
+		"_updated_at": {
+			"$date": "2017-01-30T18:24:06.948Z"
+		},
+		"_acl": {
+			"8yc7DQYnR7": {
+				"r": true,
+				"w": true
+			}
 		},
 		"targetConfigurations_": {
 			"dnsRecords": [
@@ -1632,30 +1977,41 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:42:03.760Z",
-		"verificationCode_": "0a7a53dcca6a4dabbbcb6caa7f55816d",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 0
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		}
 	},
 	{
-		"ACL": {
+		"_id": "nfjf5rtU4c",
+		"_updated_at": {
+			"$date": "2016-09-23T14:31:21.432Z"
+		},
+		"_acl": {
 			"pbkqZ1Sfii": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-09-09T14:50:21.497Z",
-		"hostname": "aquicabe1quarto.com.br",
-		"objectId": "nfjf5rtU4c",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "1ulZXA9Efr"
+		"_created_at": {
+			"$date": "2016-09-09T14:50:21.497Z"
 		},
-		"status_": "active",
+		"_wperm": [
+			"pbkqZ1Sfii"
+		],
+		"hostname": "aquicabe1quarto.com.br",
+		"_rperm": [
+			"pbkqZ1Sfii"
+		],
+		"verificationCode_": "a13d12f924db48a39a80e2d6a465fd40",
+		"_p_project": "Project$1ulZXA9Efr",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -1706,30 +2062,42 @@
 				}
 			]
 		},
-		"updatedAt": "2016-09-23T14:31:21.432Z",
-		"verificationCode_": "a13d12f924db48a39a80e2d6a465fd40",
 		"verificationStatus_": {
-			"A": 1,
-			"CNAME": 1,
-			"verification": 1
-		}
-	},
-	{
-		"ACL": {
-			"pbkqZ1Sfii": {
-				"read": true,
-				"write": true
+			"A": {
+				"$numberLong": "1"
+			},
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "1"
 			}
 		},
-		"createdAt": "2016-09-09T14:46:31.436Z",
+		"status_": "active"
+	},
+	{
+		"_id": "qGwFJcU6ef",
+		"_wperm": [
+			"pbkqZ1Sfii"
+		],
 		"hostname": "aquicabe.com.br",
-		"objectId": "qGwFJcU6ef",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "1ulZXA9Efr"
+		"_p_project": "Project$1ulZXA9Efr",
+		"_created_at": {
+			"$date": "2016-09-09T14:46:31.436Z"
 		},
-		"status_": "active",
+		"_updated_at": {
+			"$date": "2016-09-23T14:30:49.650Z"
+		},
+		"_acl": {
+			"pbkqZ1Sfii": {
+				"r": true,
+				"w": true
+			}
+		},
+		"_rperm": [
+			"pbkqZ1Sfii"
+		],
+		"verificationCode_": "0fdc3c1241044269b5f1d015d9599478",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -1780,29 +2148,40 @@
 				}
 			]
 		},
-		"updatedAt": "2016-09-23T14:30:49.650Z",
-		"verificationCode_": "0fdc3c1241044269b5f1d015d9599478",
 		"verificationStatus_": {
 			"A": 0.2,
-			"CNAME": 1,
-			"verification": 1
-		}
-	},
-	{
-		"ACL": {
-			"KLK4QgF0kk": {
-				"read": true,
-				"write": true
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "1"
 			}
 		},
-		"createdAt": "2016-07-30T18:56:13.894Z",
+		"status_": "active"
+	},
+	{
+		"_id": "sbDmcRa49t",
+		"verificationCode_": "f03e6b7792b5498aafcf1a6fb70f1602",
+		"_wperm": [
+			"KLK4QgF0kk"
+		],
 		"hostname": "estacao_do_ano.com",
-		"objectId": "sbDmcRa49t",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "NA8b3PpQJL"
+		"_created_at": {
+			"$date": "2016-07-30T18:56:13.894Z"
 		},
+		"_updated_at": {
+			"$date": "2017-01-30T18:24:06.812Z"
+		},
+		"_rperm": [
+			"KLK4QgF0kk"
+		],
+		"_acl": {
+			"KLK4QgF0kk": {
+				"r": true,
+				"w": true
+			}
+		},
+		"_p_project": "Project$NA8b3PpQJL",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -1847,30 +2226,52 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:38:04.736Z",
-		"verificationCode_": "f03e6b7792b5498aafcf1a6fb70f1602",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 0
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
+			}
 		}
 	},
 	{
-		"ACL": {
+		"_id": "sxUplJjasd",
+		"_rperm": [
+			"4ohu2lZFUz"
+		],
+		"_wperm": [
+			"4ohu2lZFUz"
+		],
+		"_updated_at": {
+			"$date": "2016-10-19T14:40:54.313Z"
+		},
+		"_p_project": "Project$qrcqD9xvhR",
+		"verificationCode_": "56349d59fb584b7e9b260799a6d5d87d",
+		"_created_at": {
+			"$date": "2016-10-19T14:17:00.347Z"
+		},
+		"_acl": {
 			"4ohu2lZFUz": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-10-19T14:17:00.347Z",
 		"hostname": "cebolaestoque.com.br",
-		"objectId": "sxUplJjasd",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "qrcqD9xvhR"
+		"verificationStatus_": {
+			"A": {
+				"$numberLong": "1"
+			},
+			"CNAME": {
+				"$numberLong": "1"
+			},
+			"verification": {
+				"$numberLong": "1"
+			}
 		},
-		"status_": "active",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -1921,30 +2322,31 @@
 				}
 			]
 		},
-		"updatedAt": "2016-10-19T14:40:54.313Z",
-		"verificationCode_": "56349d59fb584b7e9b260799a6d5d87d",
-		"verificationStatus_": {
-			"A": 1,
-			"CNAME": 1,
-			"verification": 1
-		}
+		"status_": "active"
 	},
 	{
-		"ACL": {
+		"_id": "tDCDHplrfM",
+		"_created_at": {
+			"$date": "2016-02-16T16:29:10.810Z"
+		},
+		"_rperm": [
+			"2RPIgVIJHc"
+		],
+		"_acl": {
 			"2RPIgVIJHc": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-02-16T16:29:10.810Z",
 		"hostname": "martyn.rocks",
-		"objectId": "tDCDHplrfM",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "hLuWm2PFd8"
+		"_wperm": [
+			"2RPIgVIJHc"
+		],
+		"_p_project": "Project$hLuWm2PFd8",
+		"verificationCode_": "d8d60ad96fca40088d4058c3a083139e",
+		"_updated_at": {
+			"$date": "2016-02-19T12:45:16.799Z"
 		},
-		"status_": "active",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -1995,30 +2397,42 @@
 				}
 			]
 		},
-		"updatedAt": "2016-02-19T12:45:16.799Z",
-		"verificationCode_": "d8d60ad96fca40088d4058c3a083139e",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 1
-		}
-	},
-	{
-		"ACL": {
-			"7LahkMKwgp": {
-				"read": true,
-				"write": true
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "1"
 			}
 		},
-		"createdAt": "2016-04-20T05:15:06.951Z",
-		"hostname": "dasnuvens-holding.quagliato.me",
-		"objectId": "vI8SE30sXB",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "jgBjIJZO0G"
+		"status_": "active"
+	},
+	{
+		"_id": "vI8SE30sXB",
+		"_created_at": {
+			"$date": "2016-04-20T05:15:06.951Z"
 		},
-		"status_": "active",
+		"verificationCode_": "376096e84b484447b6e7d75ea3a72af5",
+		"_updated_at": {
+			"$date": "2016-04-20T05:17:55.993Z"
+		},
+		"_p_project": "Project$jgBjIJZO0G",
+		"_rperm": [
+			"7LahkMKwgp"
+		],
+		"_acl": {
+			"7LahkMKwgp": {
+				"r": true,
+				"w": true
+			}
+		},
+		"_wperm": [
+			"7LahkMKwgp"
+		],
+		"hostname": "dasnuvens-holding.quagliato.me",
 		"targetConfigurations_": {
 			"dnsRecords": [
 				{
@@ -2065,28 +2479,37 @@
 				}
 			]
 		},
-		"updatedAt": "2016-04-20T05:17:55.993Z",
-		"verificationCode_": "376096e84b484447b6e7d75ea3a72af5",
 		"verificationStatus_": {
 			"A": 0.4,
-			"CNAME": 0,
+			"CNAME": {
+				"$numberLong": "0"
+			},
 			"verification": 0.8
-		}
+		},
+		"status_": "active"
 	},
 	{
-		"ACL": {
+		"_id": "vIKtSnJX32",
+		"_p_project": "Project$19DenTG7No",
+		"_created_at": {
+			"$date": "2016-03-04T22:09:40.335Z"
+		},
+		"_acl": {
 			"HHZ86QMOV0": {
-				"read": true,
-				"write": true
+				"r": true,
+				"w": true
 			}
 		},
-		"createdAt": "2016-03-04T22:09:40.335Z",
+		"_wperm": [
+			"HHZ86QMOV0"
+		],
 		"hostname": "http://static-www.habemus.website/",
-		"objectId": "vIKtSnJX32",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "19DenTG7No"
+		"verificationCode_": "604441c10a0c41a5a516874a621e8f72",
+		"_rperm": [
+			"HHZ86QMOV0"
+		],
+		"_updated_at": {
+			"$date": "2017-01-30T18:20:06.655Z"
 		},
 		"targetConfigurations_": {
 			"dnsRecords": [
@@ -2132,86 +2555,16 @@
 				}
 			]
 		},
-		"updatedAt": "2016-11-14T02:38:08.868Z",
-		"verificationCode_": "604441c10a0c41a5a516874a621e8f72",
 		"verificationStatus_": {
-			"A": 0,
-			"CNAME": 0,
-			"verification": 0
-		}
-	},
-	{
-		"ACL": {
-			"g89GVz3Pos": {
-				"read": true,
-				"write": true
+			"A": {
+				"$numberLong": "0"
+			},
+			"CNAME": {
+				"$numberLong": "0"
+			},
+			"verification": {
+				"$numberLong": "0"
 			}
-		},
-		"createdAt": "2016-06-09T18:40:37.846Z",
-		"hostname": "quetalumdoce.com.br",
-		"objectId": "w4fkdPdUoO",
-		"project": {
-			"__type": "Pointer",
-			"className": "Project",
-			"objectId": "CTELTit4uZ"
-		},
-		"status_": "active",
-		"targetConfigurations_": {
-			"dnsRecords": [
-				{
-					"_kind": "verification",
-					"actualValues": [
-						"6bdf997c749e4e27af67b479adf7a163"
-					],
-					"host": "habemusverify",
-					"required": true,
-					"status": "completed",
-					"targetValues": [
-						{
-							"required": true,
-							"value": "6bdf997c749e4e27af67b479adf7a163"
-						}
-					],
-					"type": "TXT"
-				},
-				{
-					"_kind": "CNAME",
-					"actualValues": [
-						"quetalumdoce.com.br"
-					],
-					"host": "www",
-					"status": "completed",
-					"targetValues": [
-						{
-							"required": false,
-							"value": "quetalumdoce.com.br"
-						}
-					],
-					"type": "CNAME"
-				},
-				{
-					"_kind": "A",
-					"actualValues": [
-						"104.196.109.249"
-					],
-					"host": "",
-					"status": "completed",
-					"targetValues": [
-						{
-							"required": true,
-							"value": "104.196.109.249"
-						}
-					],
-					"type": "A"
-				}
-			]
-		},
-		"updatedAt": "2016-10-14T12:34:37.027Z",
-		"verificationCode_": "6bdf997c749e4e27af67b479adf7a163",
-		"verificationStatus_": {
-			"A": 1,
-			"CNAME": 1,
-			"verification": 1
 		}
 	}
 ]
