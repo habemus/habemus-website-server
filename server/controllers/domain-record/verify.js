@@ -1,6 +1,6 @@
 // third-party dependencies
 const Bluebird = require('bluebird');
-const hDns     = require('h-dns');
+const dnsUtil = require('@habemus/dns-util');
 
 // constants
 const CONSTANTS = require('../../../shared/constants');
@@ -64,9 +64,9 @@ module.exports = function (domainRecordCtrl, app, options) {
     var verificationDomain = verificationSubdomain + '.' + domain;
 
     return Bluebird.all([
-      hDns.resolveIpv4Diff(domain, targetIPAddresses),
-      hDns.resolveCnameDiff('www.' + domain, domain),
-      hDns.resolveTxtDiff(verificationDomain, verificationCode)
+      dnsUtil.resolveIpv4Diff(domain, targetIPAddresses),
+      dnsUtil.resolveCnameDiff('www.' + domain, domain),
+      dnsUtil.resolveTxtDiff(verificationDomain, verificationCode)
     ])
     .then((results) => {
       /**

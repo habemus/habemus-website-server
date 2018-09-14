@@ -2,7 +2,7 @@
 const util = require('util');
 
 // third-party
-const HWorkerServer = require('h-worker/server');
+const AMQPWorkerServer = require('@habemus/amqp-worker/server');
 const Bluebird      = require('bluebird');
 
 // own
@@ -11,9 +11,9 @@ const CONSTANTS = require('../../shared/constants');
 module.exports = function (app, options) {
 
   function HWebsiteDeployer(options) {
-    HWorkerServer.call(this, options);
+    AMQPWorkerServer.call(this, options);
   }
-  util.inherits(HWebsiteDeployer, HWorkerServer);
+  util.inherits(HWebsiteDeployer, AMQPWorkerServer);
 
   HWebsiteDeployer.prototype.workerFn = function (payload, logger) {
 

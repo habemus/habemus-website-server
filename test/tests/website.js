@@ -5,7 +5,7 @@ const should = require('should');
 const Bluebird = require('bluebird');
 const mongoose = require('mongoose');
 const mockery  = require('mockery');
-const mockPrivateHProject = require('h-project-client/mock/private');
+const mockPrivateHProject = require('habemus-project-client/mock/private');
 
 const ValidationError = mongoose.Error.ValidationError;
 
@@ -93,7 +93,7 @@ describe('websiteCtrl.resolve(domain)', function () {
 
     // mock h-project/client/private
     mockery.registerMock(
-      'h-project-client/private',
+      'habemus-project-client/private',
       mockPrivateHProject({
         data: PROJECT_MOCK_DATA,
       })

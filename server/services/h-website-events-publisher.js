@@ -1,9 +1,9 @@
 // third-party
-const HMQEventsPublisher = require('h-mq-events/publisher');
+const AMQPEventsPublisher = require('@habemus/amqp-events/publisher');
 
 module.exports = function (app, options) {
 
-  var hWebsiteEventsPublisher = new HMQEventsPublisher({
+  var hWebsiteEventsPublisher = new AMQPEventsPublisher({
     name: 'website-events',
   });
   

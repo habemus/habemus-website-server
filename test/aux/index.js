@@ -14,7 +14,7 @@ if (process.env.DEBUG === 'TRUE') {
 
 // constants
 const TEST_DB_URI = 'mongodb://localhost:27017/h-website-test-db';
-const TEST_RABBIT_MQ_URI = 'amqp://192.168.99.100';
+const TEST_RABBIT_MQ_URI = 'amqp://localhost';
 const FIXTURES_PATH = path.join(__dirname, '../fixtures');
 
 exports.fixturesPath = FIXTURES_PATH;

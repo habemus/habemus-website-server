@@ -1,11 +1,10 @@
 // third-party
-const uuid       = require('uuid');
-const mongoose   = require('mongoose');
-const makeStatus = require('mongoose-make-status');
-const makeAcls   = require('mongoose-make-acls');
-const clone      = require('clone');
-const ms         = require('ms');
-const moment     = require('moment');
+const uuid = require('uuid');
+const mongoose = require('mongoose');
+const mongoosePluginStatus = require('@habemus/mongoose-plugin-status');
+const clone = require('clone');
+const ms = require('ms');
+const moment = require('moment');
 
 // constants
 const WWW_REG_EXP = /^www\./;
@@ -175,7 +174,7 @@ domainRecordSchema.pre('validate', function (next) {
  * Add status-related functionalities to
  * the domainRecord Schema
  */
-makeStatus(domainRecordSchema, {
+mongoosePluginStatus(domainRecordSchema, {
   statuses: CONSTANTS.VALID_RECORD_STATUSES,
 });
 
